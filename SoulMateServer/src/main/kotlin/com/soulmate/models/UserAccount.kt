@@ -1,10 +1,12 @@
 package com.soulmate.models
 
+import com.soulmate.dtos.UserAccountDto
 import javax.persistence.*
 
 @Entity
 @Table(name = "user_accounts")
 class UserAccount {
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,4 +25,11 @@ class UserAccount {
 
     @Column(name="last_name")
     var lastName: String? = null
+
+    constructor(id: Long, member: Member?, firstName: String, lastName: String?) {
+        this.id = id
+        this.member = member
+        this.firstName = firstName
+        this.lastName = lastName
+    }
 }
