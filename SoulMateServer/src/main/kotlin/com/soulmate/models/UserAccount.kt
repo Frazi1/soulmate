@@ -2,12 +2,25 @@ package com.soulmate.models
 
 import javax.persistence.*
 
-@Entity()
-@Table(name="test")
-class UserAccount(name: String) {
-
-    @Id()
+@Entity
+@Table(name = "user_accounts")
+class UserAccount {
+    @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0
-    var name = name
+        get
+        set
+
+    @JoinColumn(name = "member_id")
+    @ManyToOne
+    var member: Member? = null
+        get
+        set
+
+    @Column(name="first_name")
+    var firstName: String = ""
+
+    @Column(name="last_name")
+    var lastName: String? = null
 }
