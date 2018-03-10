@@ -23,3 +23,4 @@ dist/
 nbdist/
 .nb-gradle/
 /SoulMateServer/out/production/SoulMateDTO/com/soulmate/dtos/*.class
+/SoulMateServer/out/artifacts/SoulMateDTO_jar

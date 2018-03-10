@@ -20,16 +20,22 @@ class UserAccount {
         get
         set
 
-    @Column(name="first_name")
+    @Column(name = "first_name")
     var firstName: String = ""
 
-    @Column(name="last_name")
+    @Column(name = "last_name")
     var lastName: String? = null
 
-    constructor(id: Long, member: Member?, firstName: String, lastName: String?) {
+    constructor(id: Long, member: Member?, firstName: String, lastName: String?)
+            : this(firstName, lastName) {
         this.id = id
         this.member = member
+    }
+
+    constructor(firstName: String, lastName: String?) {
         this.firstName = firstName
         this.lastName = lastName
     }
+
+    constructor()
 }

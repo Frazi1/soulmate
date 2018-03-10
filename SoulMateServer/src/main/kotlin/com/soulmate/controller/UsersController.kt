@@ -2,6 +2,7 @@ package com.soulmate.controller
 
 import com.soulmate.dtos.UserAccountDto
 import com.soulmate.mapping.map
+import com.soulmate.models.UserAccount
 import com.soulmate.services.UserService
 import org.modelmapper.ModelMapper
 import org.springframework.beans.factory.annotation.Autowired
@@ -21,6 +22,7 @@ class UsersController {
 
     @GetMapping
     fun getUserAccounts(): Iterable<UserAccountDto> {
+        userService.addUser(UserAccount("dmitry", "vychikov"))
         val users = userService.getUsers()
         val map = users.map { userAccount -> mapper.map<UserAccountDto>(userAccount) }
         return map
