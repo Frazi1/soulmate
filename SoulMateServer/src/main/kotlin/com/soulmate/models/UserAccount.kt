@@ -22,9 +22,13 @@ class UserAccount {
 
     @Column(name = "first_name")
     var firstName: String = ""
+        get
+        set
 
     @Column(name = "last_name")
     var lastName: String? = null
+        get
+        set
 
     constructor(id: Long, member: Member?, firstName: String, lastName: String?)
             : this(firstName, lastName) {
