@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service
 class UserService {
 
     @Autowired private lateinit var userRepository: UserRepository
-
     fun addUser(u: UserAccount) {
         userRepository.save(u)
     }
@@ -17,4 +16,5 @@ class UserService {
     fun getUsers(): Iterable<UserAccount>{
         return userRepository.findAll()
     }
+
 }

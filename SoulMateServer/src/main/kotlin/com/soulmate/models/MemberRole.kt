@@ -6,8 +6,8 @@ import javax.persistence.*
 @Table(name = "member_role")
 class MemberRole {
     companion object {
-        val ROLE_ADMIN = "ADMIN"
-        val ROLE_AUTHORIZED = "AUTHORIZED"
+        const val ROLE_ADMIN = "ADMIN"
+        const val ROLE_AUTHORIZED = "AUTHORIZED"
     }
 
     @Id
