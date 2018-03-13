@@ -1,10 +1,9 @@
 package com.soulmate.models
 
-import com.soulmate.dtos.UserAccountDto
 import javax.persistence.*
 
 @Entity
-@Table(name = "user_accounts")
+@Table(name = "user_account")
 class UserAccount {
 
     @Id

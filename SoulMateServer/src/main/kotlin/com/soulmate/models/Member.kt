@@ -3,7 +3,7 @@ package com.soulmate.models
 import javax.persistence.*
 
 @Entity
-@Table(name = "members")
+@Table(name = "member")
 class Member {
 
     @Id()
@@ -22,4 +22,10 @@ class Member {
     var passwordHash: String = ""
         get
         set
+
+    @ManyToMany()
+    @JoinTable(name = "member_roles",
+            joinColumns = [(JoinColumn(name = "member_id"))],
+            inverseJoinColumns = [(JoinColumn(name = "role_id"))])
+    var roles: Set<MemberRole> = setOf()
 }
