@@ -12,7 +12,5 @@ class MemberDetails(private val member: Member) : UserDetails {
     override fun isEnabled(): Boolean = true
     override fun isAccountNonLocked(): Boolean = true
 
-    override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
-        TODO("not implemented")
-    }
+    override fun getAuthorities(): MutableCollection<out GrantedAuthority> = mutableListOf(GrantedAuthority { "Admin" })
 }
