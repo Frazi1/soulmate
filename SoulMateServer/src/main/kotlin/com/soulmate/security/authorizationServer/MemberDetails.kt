@@ -1,4 +1,4 @@
-package com.soulmate.security
+package com.soulmate.security.authorizationServer
 
 import com.soulmate.models.Member
 import org.springframework.security.core.GrantedAuthority
@@ -12,5 +12,5 @@ class MemberDetails(private val member: Member) : UserDetails {
     override fun isEnabled(): Boolean = true
     override fun isAccountNonLocked(): Boolean = true
 
-    override fun getAuthorities(): MutableCollection<out GrantedAuthority> = mutableListOf(GrantedAuthority { "Admin" })
+    override fun getAuthorities(): MutableCollection<out GrantedAuthority> = mutableListOf(GrantedAuthority { "ADMIN" })
 }

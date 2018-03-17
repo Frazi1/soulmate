@@ -1,24 +1,24 @@
 package com.soulmate.security
 
-import org.springframework.security.oauth2.provider.approval.TokenApprovalStore
-import org.springframework.security.oauth2.provider.token.TokenStore
-import org.springframework.security.oauth2.provider.approval.ApprovalStore
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.security.oauth2.provider.request.DefaultOAuth2RequestFactory
-import org.springframework.security.oauth2.provider.approval.TokenStoreUserApprovalHandler
-import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore
-import org.springframework.security.authentication.AuthenticationManager
-import jdk.nashorn.internal.runtime.GlobalFunctions.anonymous
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.config.BeanIds
-import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
-import org.springframework.security.oauth2.provider.ClientDetailsService
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
+import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
+import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.password.PasswordEncoder
-import java.util.logging.Logger
+import org.springframework.security.oauth2.provider.ClientDetailsService
+import org.springframework.security.oauth2.provider.approval.ApprovalStore
+import org.springframework.security.oauth2.provider.approval.TokenApprovalStore
+import org.springframework.security.oauth2.provider.approval.TokenStoreUserApprovalHandler
+import org.springframework.security.oauth2.provider.request.DefaultOAuth2RequestFactory
+import org.springframework.security.oauth2.provider.token.TokenStore
+import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore
 
 
 @Configuration
@@ -29,16 +29,16 @@ class OAuth2SecurityConfigurationTest : WebSecurityConfigurerAdapter() {
     private lateinit var clientDetailsService: ClientDetailsService
 
     @Autowired
+    private lateinit var passwordEncoder: PasswordEncoder
+
+    @Autowired
+    @Qualifier("MemberService")
+    private lateinit var userDetailsService: UserDetailsService
+
+    @Autowired
     fun globalUserDetails(auth: AuthenticationManagerBuilder) {
-        auth.inMemoryAuthentication()
-                .passwordEncoder(object : PasswordEncoder {
-                    override fun encode(seq: CharSequence): String = seq.toString()
-
-                    override fun matches(seq: CharSequence, pass: String): Boolean = encode(seq) == pass
-                })
-                .withUser("bill").password("abc123").roles("ADMIN").and()
-                .withUser("bob").password("abc123").roles("USER")
-
+        auth.userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder)
     }
 
     override fun configure(http: HttpSecurity) {
