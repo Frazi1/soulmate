@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 
 
-@RestController(value = "/users")
+//@RestController(value = "/users")
+@RestController
 class UsersController {
 
     @Autowired
@@ -20,7 +21,7 @@ class UsersController {
     lateinit var userService: UserService
 
 
-    @GetMapping
+    @GetMapping(value = ["/users"])
     fun getUserAccounts(): Iterable<UserAccountDto> {
         userService.addUser(UserAccount("dmitry", "vychikov"))
         val users = userService.getUsers()
