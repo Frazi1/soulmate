@@ -4,6 +4,7 @@ import com.soulmate.models.UserAccount
 import com.soulmate.repositories.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import java.util.*
 
 @Service
 class UserService {
@@ -17,4 +18,7 @@ class UserService {
         return userRepository.findAll()
     }
 
+    fun getUser(id: Long): Optional<UserAccount> = userRepository.findById(id)
+
+    fun updateUser(userAccount: UserAccount) = userRepository.save(userAccount)
 }
