@@ -20750,11 +20750,11 @@
 											"containerExtending": false,
 											"left": 489,
 											"top": 579,
-											"width": 162,
-											"height": 13,
+											"width": 155,
+											"height": 26,
 											"autoResize": false,
 											"underline": false,
-											"text": "Редактирование анкеты",
+											"text": "Редактирование собственной анкеты",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5
 										},
@@ -20819,8 +20819,8 @@
 									"containerExtending": false,
 									"left": 484,
 									"top": 572,
-									"width": 172,
-									"height": 25,
+									"width": 165,
+									"height": 38,
 									"autoResize": false,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAFiTvgFfBCqFVA="
@@ -20878,8 +20878,8 @@
 									"containerChangeable": false,
 									"containerExtending": false,
 									"left": 484,
-									"top": 597,
-									"width": 172,
+									"top": 610,
+									"width": 165,
 									"height": 0,
 									"autoResize": false
 								}
@@ -20895,7 +20895,7 @@
 							"containerExtending": false,
 							"left": 484,
 							"top": 572,
-							"width": 172,
+							"width": 165,
 							"height": 40,
 							"autoResize": false,
 							"stereotypeDisplay": "label",
@@ -20906,7 +20906,7 @@
 							"nameCompartment": {
 								"$ref": "AAAAAAFiTvgFexCpzXU="
 							},
-							"wordWrap": false,
+							"wordWrap": true,
 							"internalActivityCompartment": {
 								"$ref": "AAAAAAFiTvgFfBCuldY="
 							},
@@ -21279,11 +21279,11 @@
 											"containerExtending": false,
 											"left": 897,
 											"top": 319,
-											"width": 192,
-											"height": 13,
+											"width": 236,
+											"height": 26,
 											"autoResize": false,
 											"underline": false,
-											"text": "Оценивание анкеты",
+											"text": "Оценивание предложенной анкеты",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5
 										},
@@ -21348,8 +21348,8 @@
 									"containerExtending": false,
 									"left": 892,
 									"top": 312,
-									"width": 202,
-									"height": 25,
+									"width": 246,
+									"height": 38,
 									"autoResize": false,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAFiTv2v/BFd3to="
@@ -21407,8 +21407,8 @@
 									"containerChangeable": false,
 									"containerExtending": false,
 									"left": 892,
-									"top": 337,
-									"width": 202,
+									"top": 350,
+									"width": 246,
 									"height": 0,
 									"autoResize": false
 								}
@@ -21424,7 +21424,7 @@
 							"containerExtending": false,
 							"left": 892,
 							"top": 312,
-							"width": 202,
+							"width": 246,
 							"height": 69,
 							"autoResize": false,
 							"stereotypeDisplay": "label",
@@ -21435,7 +21435,7 @@
 							"nameCompartment": {
 								"$ref": "AAAAAAFiTv2v/BFcMuI="
 							},
-							"wordWrap": false,
+							"wordWrap": true,
 							"internalActivityCompartment": {
 								"$ref": "AAAAAAFiTv2v/RFhpeg="
 							},
@@ -22472,7 +22472,7 @@
 									"model": {
 										"$ref": "AAAAAAFiTwcK2RMqcvY="
 									},
-									"visible": false,
+									"visible": true,
 									"enabled": true,
 									"lineColor": "#000000",
 									"fillColor": "#ffffff",
@@ -22481,18 +22481,19 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 1136,
-									"top": 285,
-									"width": 0,
+									"left": 1012,
+									"top": 272,
+									"width": 97,
 									"height": 13,
 									"autoResize": false,
-									"alpha": 1.5707963267948966,
-									"distance": 15,
+									"alpha": 1.3597023106454207,
+									"distance": 14.317821063276353,
 									"hostEdge": {
 										"$ref": "AAAAAAFiTwcK2RMrhuQ="
 									},
 									"edgePosition": 1,
 									"underline": false,
+									"text": "Сделана оценка",
 									"horizontalAlignment": 2,
 									"verticalAlignment": 5
 								},
@@ -22514,8 +22515,8 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 1151,
-									"top": 285,
+									"left": 1057,
+									"top": 256,
 									"width": 0,
 									"height": 13,
 									"autoResize": false,
@@ -22547,8 +22548,8 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 1107,
-									"top": 286,
+									"left": 1057,
+									"top": 301,
 									"width": 0,
 									"height": 13,
 									"autoResize": false,
@@ -22579,7 +22580,7 @@
 								"$ref": "AAAAAAFiTv2v/BFbbks="
 							},
 							"lineStyle": 0,
-							"points": "992:312;992:292;1122:292;1122:331;1093:331",
+							"points": "992:312;992:292;1122:292;1122:312",
 							"stereotypeDisplay": "label",
 							"showVisibility": true,
 							"showProperty": true,
@@ -25441,7 +25442,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFiTuRCaQvi+R8="
 							},
-							"name": "Редактирование анкеты",
+							"name": "Редактирование собственной анкеты",
 							"visibility": "public"
 						},
 						{
@@ -25476,7 +25477,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFiTuRCaQvi+R8="
 							},
-							"name": "Оценивание анкеты",
+							"name": "Оценивание предложенной анкеты",
 							"visibility": "public"
 						},
 						{
@@ -25816,6 +25817,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFiTuRCaQvi+R8="
 							},
+							"name": "Сделана оценка",
 							"source": {
 								"$ref": "AAAAAAFiTv2v+xFaPPY="
 							},
