@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/SoulMateDTO/SoulMateDTO.iml" filepath="$PROJECT_DIR$/SoulMateDTO/SoulMateDTO.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SoulMateDTO/SoulMateDTO.iml" filepath="$PROJECT_DIR$/SoulMateDTO/SoulMateDTO.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SoulMateServer/soulmate.iml" filepath="$PROJECT_DIR$/SoulMateServer/soulmate.iml" />
+    </modules>
+  </component>
+</project>
