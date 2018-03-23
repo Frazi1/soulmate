@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class LoginController {
 
-    @RequestMapping(value = ["/login"], method = [RequestMethod.GET, RequestMethod.POST])
+    @RequestMapping(value = "/login", method = [RequestMethod.GET, RequestMethod.POST])
     fun login(): String {
         return "ok";
     }
