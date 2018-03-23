@@ -2,14 +2,14 @@ package com.soulmate.services
 
 import com.soulmate.models.Member
 import com.soulmate.repositories.MemberRepository
-import com.soulmate.security.MemberDetails
+import com.soulmate.security.authorizationServer.MemberDetails
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Service
 
-@Service
-class MemberService : UserDetailsService {
+@Service(value = "MemberService")
+class MemberService : UserDetailsService/*, ClientDetailsService*/ {
 
     @Autowired
     private lateinit var memberRepository: MemberRepository
@@ -18,4 +18,8 @@ class MemberService : UserDetailsService {
 
     override fun loadUserByUsername(name: String): UserDetails =
             MemberDetails(getByEmail(name))
+
+//    override fun loadClientByClientId(id: String): ClientDetails {
+//
+//    }
 }
