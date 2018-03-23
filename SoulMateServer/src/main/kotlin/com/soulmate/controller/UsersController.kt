@@ -25,7 +25,7 @@ class UsersController {
     lateinit var userService: UserService
 
 
-    @GetMapping(value = ["/users"])
+    @GetMapping(value = "/users")
     fun getUserAccounts(): Iterable<UserAccountDto> {
         userService.addUser(UserAccount("dmitry", "vychikov"))
         val users = userService.getUsers()
@@ -33,15 +33,15 @@ class UsersController {
         return map
     }
 
-    @GetMapping(value = ["/profile"])
-    fun getUserProfile(authentication: Authentication): UserAccountDto? {
+    @GetMapping(value = "/profile")
+    fun getUserProfile(authentication: Authentication): com.soulmate.dtos.UserAccountDto? {
         val memberDetails = authentication.principal as MemberDetails
         val userAccount = userService.getUser(memberDetails.member.id)
         val map = mapper.map<UserAccountDto>(userAccount.get())
         return map
     }
 
-    @PutMapping(value = ["/profile"])
+    @PutMapping(value = "/profile")
     fun updateUserProfile(authentication: Authentication, @RequestBody userAccountDto: UserAccountDto) {
         val memberDetails = authentication.principal as MemberDetails
         val existingUserAccount = userService.getUser(memberDetails.member.id)
