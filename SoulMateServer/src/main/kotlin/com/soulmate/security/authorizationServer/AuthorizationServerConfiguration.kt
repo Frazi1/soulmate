@@ -53,6 +53,7 @@ class AuthorizationServerConfiguration : AuthorizationServerConfigurerAdapter() 
     override fun configure(endpoints: AuthorizationServerEndpointsConfigurer) {
         endpoints.tokenStore(tokenStore).userApprovalHandler(userApprovalHandler)
                 .authenticationManager(authenticationManager)
+
     }
 
     override fun configure(oauthServer: AuthorizationServerSecurityConfigurer) {

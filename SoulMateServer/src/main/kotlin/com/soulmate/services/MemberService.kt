@@ -14,10 +14,20 @@ class MemberService : UserDetailsService/*, ClientDetailsService*/ {
     @Autowired
     private lateinit var memberRepository: MemberRepository
 
-    fun getByEmail(email: String): Member = memberRepository.findByEmail(email)
+    fun getByEmail(email: String): Member? = memberRepository.findByEmail(email)
+    fun exists(email: String): Boolean = memberRepository.existsByEmail(email)
 
-    override fun loadUserByUsername(name: String): UserDetails =
-            MemberDetails(getByEmail(name))
+    override fun loadUserByUsername(name: String): UserDetails? {
+        val member: Member? = getByEmail(name)
+        return if (member != null)
+            MemberDetails(member)
+        else
+            null
+    }
+
+    fun add(member: Member) {
+        memberRepository.save(member)
+    }
 
 //    override fun loadClientByClientId(id: String): ClientDetails {
 //
