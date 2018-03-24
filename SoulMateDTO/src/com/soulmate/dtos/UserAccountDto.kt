@@ -1,3 +1,7 @@
-package com.soulmate.dtos
+package dtos
 
-data class UserAccountDto(var id: Long = 0, var firstName: String = "", var lastName: String = "")
+data class UserAccountDto(var id: Long = 0,
+                          var firstName: String? = "",
+                          var lastName: String? = "",
+                          var profileImages: List<ProfileImageDto> = listOf())
+

@@ -4,9 +4,7 @@ import com.soulmate.models.Member
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 
-class MemberDetails(member: Member) : UserDetails {
-    val member = member
-        get
+class MemberDetails(val member: Member) : UserDetails {
 
     override fun getUsername(): String = member.email
     override fun getPassword(): String = member.passwordHash

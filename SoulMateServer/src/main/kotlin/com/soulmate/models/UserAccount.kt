@@ -21,13 +21,16 @@ class UserAccount {
     @Column(name = "last_name")
     var lastName: String? = null
 
-    constructor(id: Long, member: Member?, firstName: String, lastName: String?)
+    @OneToMany(mappedBy = "userAccount", fetch = FetchType.EAGER)
+    var profileImages: Set<ProfileImage> = setOf()
+
+    constructor(id: Long, member: Member?, firstName: String?, lastName: String?)
             : this(firstName, lastName) {
         this.id = id
         this.member = member
     }
 
-    constructor(firstName: String, lastName: String? = null) {
+    constructor(firstName: String?, lastName: String? = null) {
         this.firstName = firstName
         this.lastName = lastName
     }

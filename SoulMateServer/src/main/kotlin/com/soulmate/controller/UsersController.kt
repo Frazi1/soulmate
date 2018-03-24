@@ -1,6 +1,6 @@
 package com.soulmate.controller
 
-import com.soulmate.dtos.UserAccountDto
+import dtos.UserAccountDto
 import com.soulmate.mapping.toUserAccount
 import com.soulmate.mapping.toUserAccountDto
 import com.soulmate.models.UserAccount
@@ -32,7 +32,7 @@ class UsersController {
     }
 
     @GetMapping(value = "/profile")
-    fun getUserProfile(authentication: Authentication): com.soulmate.dtos.UserAccountDto? {
+    fun getUserProfile(authentication: Authentication): UserAccountDto? {
         val memberDetails = authentication.principal as MemberDetails
         val userAccount = userService.getUser(memberDetails.member.id)
 
