@@ -37,7 +37,7 @@ class RegistrationController {
     @PostMapping
     fun register(@Valid @RequestBody userRegistrationDto: UserRegistrationDto) {
         val member = userRegistrationDto.toMember()
-        memberService.add(member)
+        memberService.registerMember(member)
     }
 
     @GetMapping

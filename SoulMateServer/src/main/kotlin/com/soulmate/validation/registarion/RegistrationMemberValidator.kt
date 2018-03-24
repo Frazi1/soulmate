@@ -22,8 +22,8 @@ class RegistrationMemberValidator : BaseValidator<UserRegistrationDto>() {
 
         val userRegistrationDto = getValidationEntity(obj)
 
-        if (userRegistrationDto.firstName.isEmpty())
-            error.rejectValue(userRegistrationDto::firstName.name, ErrorCodes.USER_NAME_IS_EMPTY.description)
+        if (userRegistrationDto.email.isEmpty())
+            error.rejectValue(userRegistrationDto::email.name, ErrorCodes.USER_NAME_IS_EMPTY.description)
 
         if (userRegistrationDto.passwordHash.isEmpty())
             error.rejectValue(userRegistrationDto::passwordHash.name, ErrorCodes.PASSWORD_IS_EMPTY.description)

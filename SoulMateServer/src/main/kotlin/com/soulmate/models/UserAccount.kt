@@ -12,11 +12,11 @@ class UserAccount {
     var id: Long = 0
 
     @JoinColumn(name = "member_id")
-    @OneToOne
+    @OneToOne(cascade = [(CascadeType.PERSIST)])
     var member: Member? = null
 
     @Column(name = "first_name")
-    var firstName: String = ""
+    var firstName: String? = null
 
     @Column(name = "last_name")
     var lastName: String? = null

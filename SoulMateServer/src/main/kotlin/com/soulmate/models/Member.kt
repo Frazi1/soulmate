@@ -4,7 +4,7 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "member")
-class Member {
+class Member() {
 
     @Id()
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,10 +23,11 @@ class Member {
             inverseJoinColumns = [(JoinColumn(name = "role_id"))])
     var roles: Set<MemberRole> = setOf()
 
-    @OneToOne
-    var userAccount: UserAccount?
+    @OneToOne(cascade = [(CascadeType.PERSIST)])
+    var userAccount: UserAccount? = null
 
-    constructor(email: String, passwordHash: String, userAccount: UserAccount?) {
+    constructor(email: String, passwordHash: String, userAccount: UserAccount?)
+            : this() {
         this.email = email
         this.passwordHash = passwordHash
         this.userAccount = userAccount

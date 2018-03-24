@@ -1,7 +1,9 @@
 package com.soulmate.services
 
 import com.soulmate.models.Member
+import com.soulmate.models.UserAccount
 import com.soulmate.repositories.MemberRepository
+import com.soulmate.repositories.UserRepository
 import com.soulmate.security.authorizationServer.MemberDetails
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.userdetails.UserDetails
@@ -14,6 +16,9 @@ class MemberService : UserDetailsService/*, ClientDetailsService*/ {
     @Autowired
     private lateinit var memberRepository: MemberRepository
 
+    @Autowired
+    lateinit var userRepository: UserRepository
+
     fun getByEmail(email: String): Member? = memberRepository.findByEmail(email)
     fun exists(email: String): Boolean = memberRepository.existsByEmail(email)
 
@@ -25,7 +30,14 @@ class MemberService : UserDetailsService/*, ClientDetailsService*/ {
             null
     }
 
-    fun add(member: Member) {
+//    fun add(member: Member) {
+//        memberRepository.save(member)
+//    }
+
+    fun registerMember(member: Member) {
+        val userAccount = UserAccount()
+        member.userAccount = userAccount
+        userAccount.member = member
         memberRepository.save(member)
     }
 
