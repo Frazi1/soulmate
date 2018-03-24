@@ -1,6 +1,6 @@
 package com.soulmate.validation.registarion
 
-import com.soulmate.mapping.map
+import com.soulmate.mapping.toMember
 import com.soulmate.models.Member
 import com.soulmate.services.MemberService
 import dtos.UserRegistrationDto
@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.stereotype.Component
 import org.springframework.validation.Errors
+import org.springframework.validation.ValidationUtils
 
 @Component
 class RegistrationMemberValidator : BaseValidator<UserRegistrationDto>() {
@@ -18,9 +19,17 @@ class RegistrationMemberValidator : BaseValidator<UserRegistrationDto>() {
     override fun supports(javaClass: Class<*>): Boolean = UserRegistrationDto::class.java.isAssignableFrom(javaClass)
     override fun validate(obj: Any?, error: Errors) {
 //        val userRegistrationDto = obj as UserRegistrationDto
+
         val userRegistrationDto = getValidationEntity(obj)
-        val member = mapper.map<Member>(userRegistrationDto)
-        val memberExists = memberService.exists(member.email)
+
+        if (userRegistrationDto.firstName.isEmpty())
+            error.rejectValue(userRegistrationDto::firstName.name, ErrorCodes.USER_NAME_IS_EMPTY.description)
+
+        if (userRegistrationDto.passwordHash.isEmpty())
+            error.rejectValue(userRegistrationDto::passwordHash.name, ErrorCodes.PASSWORD_IS_EMPTY.description)
+
+        val member: Member = userRegistrationDto.toMember()
+        val memberExists: Boolean = memberService.exists(member.email)
         if (memberExists) {
             error.reject(ErrorCodes.USER_ALREADY_EXISTS.description)
         }

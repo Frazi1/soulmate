@@ -14,15 +14,10 @@ class MemberRole {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     var id: Long = 0
-        get
-        set
 
     @Column(name = "role")
     var role: String = ""
-        get
-        set
 
     @ManyToMany(mappedBy = "roles")
     val members: Set<Member> = setOf()
-        get
 }

@@ -77,4 +77,6 @@ class OAuth2SecurityConfigurationTest : WebSecurityConfigurerAdapter() {
         store.setTokenStore(tokenStore)
         return store
     }
+
+
 }

@@ -9,9 +9,6 @@ import org.springframework.validation.Validator
 @Component
 abstract class BaseValidator<T>: Validator {
 
-    @Autowired
-    protected lateinit var mapper: ModelMapper
-
     protected fun getValidationEntity(obj:Any?): T {
         return obj as T
     }

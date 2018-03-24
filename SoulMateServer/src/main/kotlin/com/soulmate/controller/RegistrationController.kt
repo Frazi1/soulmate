@@ -1,12 +1,10 @@
 package com.soulmate.controller
 
-import com.soulmate.mapping.map
-import com.soulmate.models.Member
+import com.soulmate.mapping.toMember
 import com.soulmate.services.MemberService
 import com.soulmate.services.UserService
 import com.soulmate.validation.registarion.RegistrationMemberValidator
 import dtos.UserRegistrationDto
-import org.modelmapper.ModelMapper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.WebDataBinder
 import org.springframework.web.bind.annotation.*
@@ -21,9 +19,6 @@ class RegistrationController {
 
     @Autowired
     private lateinit var memberService: MemberService
-
-    @Autowired
-    private lateinit var modelMapper: ModelMapper
 
     @Autowired
     lateinit var registrationMemberValidator: RegistrationMemberValidator
@@ -41,13 +36,13 @@ class RegistrationController {
 
     @PostMapping
     fun register(@Valid @RequestBody userRegistrationDto: UserRegistrationDto) {
-        val member = modelMapper.map<Member>(userRegistrationDto)
+        val member = userRegistrationDto.toMember()
         memberService.add(member)
     }
 
     @GetMapping
     fun test():UserRegistrationDto {
-        return UserRegistrationDto("valera", "test")
+        return UserRegistrationDto("valera", "test", "valera")
     }
 
 }

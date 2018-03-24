@@ -10,24 +10,16 @@ class UserAccount {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0
-        get
-        set
 
     @JoinColumn(name = "member_id")
-    @ManyToOne
+    @OneToOne
     var member: Member? = null
-        get
-        set
 
     @Column(name = "first_name")
     var firstName: String = ""
-        get
-        set
 
     @Column(name = "last_name")
     var lastName: String? = null
-        get
-        set
 
     constructor(id: Long, member: Member?, firstName: String, lastName: String?)
             : this(firstName, lastName) {
@@ -35,7 +27,7 @@ class UserAccount {
         this.member = member
     }
 
-    constructor(firstName: String, lastName: String?) {
+    constructor(firstName: String, lastName: String? = null) {
         this.firstName = firstName
         this.lastName = lastName
     }
