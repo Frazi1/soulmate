@@ -22,14 +22,18 @@ class ProfileImage {
     @Column(name = "description")
     var description: String = ""
 
+    @Column(name = "is_main_image", nullable = false)
+    var isMainImage: Boolean = false
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     var userAccount: UserAccount? = null
 
-    constructor(order: Int, data: ByteArray?, description: String) {
+    constructor(order: Int, data: ByteArray?, description: String, isMainImage: Boolean) {
         this.order = order
         this.data = data
         this.description = description
+        this.isMainImage = isMainImage
     }
 
     constructor()

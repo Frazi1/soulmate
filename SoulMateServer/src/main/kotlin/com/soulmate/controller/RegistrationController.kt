@@ -28,21 +28,9 @@ class RegistrationController {
         binder.addValidators(registrationMemberValidator)
     }
 
-
-    @RequestMapping(value = ["/login"], method = [(RequestMethod.GET), (RequestMethod.POST)])
-    fun login(): String {
-        return "ok";
-    }
-
     @PostMapping
     fun register(@Valid @RequestBody userRegistrationDto: UserRegistrationDto) {
         val member = userRegistrationDto.toMember()
         memberService.registerMember(member)
     }
-
-    @GetMapping
-    fun test():UserRegistrationDto {
-        return UserRegistrationDto("valera", "test", "valera")
-    }
-
 }

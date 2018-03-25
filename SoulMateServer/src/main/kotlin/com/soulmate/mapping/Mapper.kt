@@ -26,9 +26,9 @@ fun UserRegistrationDto.toMember(): Member {
 }
 
 fun ProfileImageDto.toProfileImage(): ProfileImage {
-    return ProfileImage(this.order, this.data, this.description)
+    return ProfileImage(this.order, this.data, this.description, this.isMainImage)
 }
 
 fun ProfileImage.toProfileImageDto(): ProfileImageDto {
-    return ProfileImageDto(this.order, this.data, this.description)
+    return ProfileImageDto(this.order, this.data, this.description, this.isMainImage)
 }
