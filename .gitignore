@@ -25,3 +25,12 @@ nbdist/
 /SoulMateServer/out/production/SoulMateDTO/com/soulmate/dtos/*.class
 /SoulMateServer/out/artifacts/SoulMateDTO_jar
 /out/artifacts/SoulMateDTO_jar/SoulMateDTO.jar
+/.idea/libraries/Maven__org_jetbrains_kotlin_kotlin_reflect_1_2_30.xml
+/.idea/libraries/Maven__org_jetbrains_kotlin_kotlin_stdlib_1_2_30.xml
+/.idea/libraries/Maven__org_jetbrains_kotlin_kotlin_stdlib_jdk7_1_2_30.xml
+/.idea/libraries/Maven__org_jetbrains_kotlin_kotlin_stdlib_jdk8_1_2_30.xml
+/.idea/libraries/Maven__org_jetbrains_kotlin_kotlin_stdlib_jre7_1_2_30.xml
+/.idea/libraries/Maven__org_jetbrains_kotlin_kotlin_stdlib_jre8_1_2_30.xml
+/.idea/libraries/Maven__org_jetbrains_kotlin_kotlin_test_1_2_30.xml
+/.idea/libraries/Maven__org_modelmapper_extensions_modelmapper_spring_1_1_0.xml
+/.idea/libraries/Maven__org_modelmapper_modelmapper_1_1_0.xml
