@@ -14,6 +14,7 @@ class ResourceServerConfiguration : ResourceServerConfigurerAdapter() {
     companion object {
         private val RESOURCE_ID = "soulmate_rest_api"
     }
+    //TODO: session creation policy
     override fun configure(resources: ResourceServerSecurityConfigurer) {
         resources.resourceId(RESOURCE_ID).stateless(false)
     }
