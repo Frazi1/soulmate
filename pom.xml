@@ -62,10 +62,29 @@
                         <arg>-Xjsr305=strict</arg>
                     </args>
                     <compilerPlugins>
-                        <plugin>spring</plugin>
+                        <!--<plugin>spring</plugin>-->
+                        <!--<plugin>kotlin-spring</plugin>-->
                     </compilerPlugins>
                     <jvmTarget>${java.version}</jvmTarget>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>
+                    maven-source-plugin
+                </artifactId>
+                <groupId>org.apache.maven.plugins</groupId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+
+                </executions>
             </plugin>
         </plugins>
     </build>
