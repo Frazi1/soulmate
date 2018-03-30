@@ -1,0 +1,1 @@
+web: SoulMateServer/target/soulmate-0.0.1-SNAPSHOT.jar
