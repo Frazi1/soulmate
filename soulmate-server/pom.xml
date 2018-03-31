@@ -107,7 +107,6 @@
     <build>
         <sourceDirectory>src/main/kotlin</sourceDirectory>
         <testSourceDirectory>src/test/kotlin</testSourceDirectory>
-        <!--<outputDirectory>../target</outputDirectory>-->
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -145,7 +144,6 @@
                     </args>
                     <compilerPlugins>
                         <plugin>spring</plugin>
-                        <!--<plugin>all-open</plugin>-->
                     </compilerPlugins>
                     <jvmTarget>${java.version}</jvmTarget>
                 </configuration>
@@ -164,22 +162,6 @@
                     </dependency>
                 </dependencies>
             </plugin>
-
-            <!--<plugin>-->
-                <!--&lt;!&ndash; Build an executable JAR &ndash;&gt;-->
-                <!--<groupId>org.apache.maven.plugins</groupId>-->
-                <!--<artifactId>maven-jar-plugin</artifactId>-->
-                <!--<version>3.0.2</version>-->
-                <!--<configuration>-->
-                    <!--<archive>-->
-                        <!--<manifest>-->
-                            <!--<addClasspath>true</addClasspath>-->
-                            <!--&lt;!&ndash;<classpathPrefix>lib/</classpathPrefix>&ndash;&gt;-->
-                            <!--<mainClass>com.soulmate.SoulmateApplication</mainClass>-->
-                        <!--</manifest>-->
-                    <!--</archive>-->
-                <!--</configuration>-->
-            <!--</plugin>-->
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
