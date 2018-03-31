@@ -3,47 +3,123 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.soulmate</groupId>
-    <artifactId>soulmate-base</artifactId>
+    <!--<groupId>com.soulmate</groupId>-->
+    <artifactId>soulmate-server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>pom</packaging>
-
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
-        <kotlin.version>1.2.31</kotlin.version>
+        <spring-boot.version>2.0.0.RELEASE</spring-boot.version>
+        <spring-security.version>5.0.0.RELEASE</spring-security.version>
+        <spring-security-oauth2.version>2.3.0.RELEASE</spring-security-oauth2.version>
+        <mysql-connector.version>5.1.45</mysql-connector.version>
+        <jackson-module-kotlin.version>2.9.4.1</jackson-module-kotlin.version>
+        <retrofit.version>2.3.0</retrofit.version>
+        <SoulMateDTO.version>0.0.1-SNAPSHOT</SoulMateDTO.version>
     </properties>
+    <packaging>jar</packaging>
+
+    <name>soulmate-server</name>
+    <description>Social</description>
+
+    <parent>
+        <groupId>com.soulmate</groupId>
+        <artifactId>soulmate-base</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>soulmate-base/pom.xml</relativePath>
+    </parent>
+
+    <!--<modules>-->
+        <!--<module>-->
+            <!--SoulMateDTO-->
+        <!--</module>-->
+    <!--</modules>-->
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <!-- Import dependency management from Spring Boot -->
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-test</artifactId>
-            <version>${kotlin.version}</version>
+            <groupId>com.soulmate</groupId>
+            <artifactId>SoulMateDTO</artifactId>
+            <version>${SoulMateDTO.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <version>${spring-boot.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>${spring-boot.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.module</groupId>
+            <artifactId>jackson-module-kotlin</artifactId>
+            <version>${jackson-module-kotlin.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql-connector.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <version>${spring-boot.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-stdlib-jdk8</artifactId>
-            <version>${kotlin.version}</version>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring-security.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-reflect</artifactId>
-            <version>${kotlin.version}</version>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring-security.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-stdlib</artifactId>
-            <version>${kotlin.version}</version>
+            <groupId>org.springframework.security.oauth</groupId>
+            <artifactId>spring-security-oauth2</artifactId>
+            <version>${spring-security-oauth2.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.squareup.retrofit2</groupId>
+            <artifactId>retrofit</artifactId>
+            <version>${retrofit.version}</version>
         </dependency>
     </dependencies>
 
     <build>
+        <sourceDirectory>src/main/kotlin</sourceDirectory>
+        <testSourceDirectory>src/test/kotlin</testSourceDirectory>
         <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
+            </plugin>
+
             <plugin>
                 <artifactId>kotlin-maven-plugin</artifactId>
                 <version>${kotlin.version}</version>
@@ -62,31 +138,26 @@
                         <arg>-Xjsr305=strict</arg>
                     </args>
                     <compilerPlugins>
-                        <!--<plugin>spring</plugin>-->
-                        <!--<plugin>kotlin-spring</plugin>-->
+                        <plugin>spring</plugin>
+                        <!--<plugin>all-open</plugin>-->
                     </compilerPlugins>
                     <jvmTarget>${java.version}</jvmTarget>
                 </configuration>
-            </plugin>
 
-            <plugin>
-                <artifactId>
-                    maven-source-plugin
-                </artifactId>
-                <groupId>org.apache.maven.plugins</groupId>
-                <version>3.0.1</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>jar-no-fork</goal>
-                        </goals>
-                    </execution>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.jetbrains.kotlin</groupId>
+                        <artifactId>kotlin-maven-plugin</artifactId>
+                        <version>${kotlin.version}</version>
+                    </dependency>
 
-                </executions>
+                    <dependency>
+                        <groupId>org.jetbrains.kotlin</groupId>
+                        <artifactId>kotlin-maven-allopen</artifactId>
+                        <version>${kotlin.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>
-
 </project>
