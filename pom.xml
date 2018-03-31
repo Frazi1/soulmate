@@ -27,11 +27,11 @@
         <relativePath>soulmate-base/pom.xml</relativePath>
     </parent>
 
-    <!--<modules>-->
-        <!--<module>-->
-            <!--SoulMateDTO-->
-        <!--</module>-->
-    <!--</modules>-->
+    <modules>
+        <module>
+            SoulMateDTO
+        </module>
+    </modules>
 
     <dependencyManagement>
         <dependencies>
