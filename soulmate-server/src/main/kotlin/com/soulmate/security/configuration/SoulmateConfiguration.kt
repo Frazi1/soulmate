@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = ["com.soulmate"])
-class HelloWorldConfiguration {
+class SoulmateConfiguration {
     @Bean
     fun passwordEncoder(): PasswordEncoder = SimplePasswordEncoder()
 

@@ -23,7 +23,7 @@ import org.springframework.security.oauth2.provider.token.store.InMemoryTokenSto
 
 @Configuration
 @EnableWebSecurity
-class OAuth2SecurityConfigurationTest : WebSecurityConfigurerAdapter() {
+class OAuth2SecurityConfiguration : WebSecurityConfigurerAdapter() {
 
     @Autowired
     private lateinit var clientDetailsService: ClientDetailsService
