@@ -6,8 +6,11 @@ import org.springframework.context.annotation.ComponentScan
 
 @SpringBootApplication
 @ComponentScan()
-class SoulmateApplication
-
-    fun main(args: Array<String>) {
-        runApplication<SoulmateApplication>(*args)
+class SoulmateApplication {
+    companion object {
+        @JvmStatic
+        fun main(args: Array<String>) {
+            runApplication<SoulmateApplication>(*args)
+        }
     }
+}
