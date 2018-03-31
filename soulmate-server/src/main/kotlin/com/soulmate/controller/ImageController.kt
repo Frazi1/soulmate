@@ -1,7 +1,6 @@
 package com.soulmate.controller
 
 import com.soulmate.mapping.toProfileImage
-import com.soulmate.repositories.ImageRepository
 import com.soulmate.security.authorizationServer.MemberDetails
 import com.soulmate.services.ImageService
 import dtos.ProfileImageDto

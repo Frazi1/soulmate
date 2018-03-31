@@ -12,7 +12,7 @@
         <groupId>com.soulmate</groupId>
         <artifactId>soulmate-base</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
+        <relativePath>../soulmate-base/pom.xml</relativePath>
     </parent>
 
     <build>
