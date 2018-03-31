@@ -6,12 +6,16 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.config.BeanIds
 import org.springframework.security.crypto.password.PasswordEncoder
+import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken
+import org.springframework.security.oauth2.common.OAuth2AccessToken
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer
+import org.springframework.security.oauth2.provider.OAuth2Authentication
 import org.springframework.security.oauth2.provider.approval.UserApprovalHandler
+import org.springframework.security.oauth2.provider.token.TokenEnhancer
 import org.springframework.security.oauth2.provider.token.TokenStore
 
 
@@ -47,12 +51,20 @@ class AuthorizationServerConfiguration : AuthorizationServerConfigurerAdapter() 
                 .scopes("read", "write", "trust")
                 .secret("secret")
                 .accessTokenValiditySeconds(120) //Access token is only valid for 2 minutes.
-                .refreshTokenValiditySeconds(600)//Refresh token is only valid for 10 minutes.
+                .refreshTokenValiditySeconds(0)//Refresh token is only valid for 10 minutes.
     }
 
     override fun configure(endpoints: AuthorizationServerEndpointsConfigurer) {
-        endpoints.tokenStore(tokenStore).userApprovalHandler(userApprovalHandler)
+        endpoints.tokenStore(tokenStore)
+                .userApprovalHandler(userApprovalHandler)
                 .authenticationManager(authenticationManager)
+                .tokenEnhancer(object :TokenEnhancer {
+                    override fun enhance(token: OAuth2AccessToken, authentication: OAuth2Authentication): OAuth2AccessToken {
+                        val res = DefaultOAuth2AccessToken(token)
+                        res.additionalInformation.put("expire",res.expiration)
+                        return res
+                    }
+                })
 
     }
 
