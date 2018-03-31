@@ -4,22 +4,22 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 
 import javax.servlet.Filter
 
-class HelloWorldInitializer : AbstractAnnotationConfigDispatcherServletInitializer() {
-
-    override fun getRootConfigClasses(): Array<Class<*>>? {
-        return arrayOf(HelloWorldConfiguration::class.java)
-    }
-
-    override fun getServletConfigClasses(): Array<Class<*>>? {
-        return null
-    }
-
-    override fun getServletMappings(): Array<String> {
-        return arrayOf("/")
-    }
-
-    override fun getServletFilters(): Array<Filter>? {
-        return arrayOf(CORSFilter())
-    }
-
-}
+//class HelloWorldInitializer : AbstractAnnotationConfigDispatcherServletInitializer() {
+//
+//    override fun getRootConfigClasses(): Array<Class<*>>? {
+//        return arrayOf(SoulmateConfiguration::class.java)
+//    }
+//
+//    override fun getServletConfigClasses(): Array<Class<*>>? {
+//        return null
+//    }
+//
+//    override fun getServletMappings(): Array<String> {
+//        return arrayOf("/")
+//    }
+//
+//    override fun getServletFilters(): Array<Filter>? {
+//        return arrayOf(CORSFilter())
+//    }
+//
+//}
