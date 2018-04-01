@@ -27,5 +27,6 @@ class ResourceServerConfiguration : ResourceServerConfigurerAdapter() {
                 .antMatchers("/registration").permitAll()
                 .antMatchers("/**").authenticated()
                 .and().exceptionHandling().accessDeniedHandler(OAuth2AccessDeniedHandler())
+
     }
 }
