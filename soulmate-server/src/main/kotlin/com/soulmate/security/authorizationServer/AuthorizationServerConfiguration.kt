@@ -50,7 +50,7 @@ class AuthorizationServerConfiguration : AuthorizationServerConfigurerAdapter() 
                 .authorities("ROLE_CLIENT", "ROLE_TRUSTED_CLIENT")
                 .scopes("read", "write", "trust")
                 .secret("secret")
-                .accessTokenValiditySeconds(120) //Access token is only valid for 2 minutes.
+                .accessTokenValiditySeconds(0) //Access token is only valid for 2 minutes.
                 .refreshTokenValiditySeconds(0)//Refresh token is only valid for 10 minutes.
     }
 
