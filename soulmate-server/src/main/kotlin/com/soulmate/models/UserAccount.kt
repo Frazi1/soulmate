@@ -1,6 +1,8 @@
 package com.soulmate.models
 
+import dtos.GenderType
 import javax.persistence.*
+
 
 @Entity
 @Table(name = "user_account")
@@ -24,10 +26,19 @@ class UserAccount {
     @OneToMany(mappedBy = "userAccount", fetch = FetchType.EAGER)
     var profileImages: Set<ProfileImage> = setOf()
 
-    constructor(id: Long, member: Member?, firstName: String?, lastName: String?)
+    @Column(name = "gender")
+    var gender: GenderType = GenderType.NotDefined
+
+    @Column(name = "personal_story")
+    var personalStory: String = ""
+
+
+    constructor(id: Long, member: Member?, firstName: String?, lastName: String?, gender: GenderType, personalStory: String)
             : this(firstName, lastName) {
         this.id = id
         this.member = member
+        this.gender = gender
+        this.personalStory = personalStory
     }
 
     constructor(firstName: String?, lastName: String? = null) {

@@ -23,7 +23,7 @@ class UsersController {
     lateinit var userService: UserService
 
 
-    @GetMapping(value = "/users")
+    @GetMapping(value = ["/users"])
     fun getUserAccounts(): Iterable<UserAccountDto> {
         userService.addUser(UserAccount("dmitry", "vychikov"))
         val users = userService.getUsers()
@@ -31,7 +31,7 @@ class UsersController {
         return map
     }
 
-    @GetMapping(value = "/profile")
+    @GetMapping(value = ["/profile"])
     fun getUserProfile(authentication: Authentication): UserAccountDto? {
         val memberDetails = authentication.principal as MemberDetails
         val userAccount = userService.getUser(memberDetails.member.id)
@@ -40,14 +40,16 @@ class UsersController {
         return map
     }
 
-    @PutMapping(value = "/profile")
+    @PutMapping(value = ["/profile"])
     fun updateUserProfile(authentication: Authentication, @RequestBody userAccountDto: UserAccountDto) {
         val memberDetails: MemberDetails = authentication.principal as MemberDetails
         val existingUserAccount: Optional<UserAccount> = userService.getUser(memberDetails.member.id)
         val updatedUserAccount: UserAccount = userAccountDto.toUserAccount()
         existingUserAccount.ifPresent {
-            it.firstName = updatedUserAccount.firstName
-            it.lastName = updatedUserAccount.lastName
+//            it.firstName = updatedUserAccount.firstName
+//            it.lastName = updatedUserAccount.lastName
+//            it.personalStory = updatedUserAccount.personalStory
+            userAccountDto.toUserAccount(it)
             userService.updateUser(it)
         }
     }
