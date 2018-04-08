@@ -12,7 +12,6 @@
         <mysql-connector.version>5.1.45</mysql-connector.version>
         <jackson-module-kotlin.version>2.9.4.1</jackson-module-kotlin.version>
         <retrofit.version>2.3.0</retrofit.version>
-        <SoulMateDTO.version>0.0.1-SNAPSHOT</SoulMateDTO.version>
     </properties>
     <packaging>jar</packaging>
 
@@ -21,9 +20,8 @@
 
     <parent>
         <groupId>com.soulmate</groupId>
-        <artifactId>soulmate-base</artifactId>
+        <artifactId>soulmate</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath>../soulmate-base/pom.xml</relativePath>
     </parent>
 
     <dependencyManagement>
@@ -75,8 +73,8 @@
     <dependencies>
         <dependency>
             <groupId>com.soulmate</groupId>
-            <artifactId>SoulMateDTO</artifactId>
-            <version>${SoulMateDTO.version}</version>
+            <artifactId>soulmate-dto</artifactId>
+            <version>${version}</version>
         </dependency>
 
         <dependency>
