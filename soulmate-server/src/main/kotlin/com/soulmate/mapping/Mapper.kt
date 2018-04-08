@@ -8,11 +8,26 @@ import dtos.ProfileImageDto
 import dtos.UserRegistrationDto
 
 fun UserAccount.toUserAccountDto(): UserAccountDto {
-    return UserAccountDto(this.id, this.firstName, this.firstName, this.profileImages.map { it.toProfileImageDto() })
+    return UserAccountDto(
+            this.id,
+            this.firstName,
+            this.firstName,
+            this.profileImages.map { it.toProfileImageDto() },
+            this.gender,
+            this.personalStory)
 }
 
 fun UserAccountDto.toUserAccount(): UserAccount {
-    return UserAccount(this.id, null, this.firstName, this.lastName)
+    return this.toUserAccount(UserAccount())
+}
+
+fun UserAccountDto.toUserAccount(userAccount: UserAccount): UserAccount {
+    userAccount.id = this.id
+    userAccount.firstName = this.firstName
+    userAccount.lastName = this.lastName
+    userAccount.gender = this.gender
+    userAccount.personalStory = this.personalStory
+    return userAccount
 }
 
 fun Member.toUserRegistrationDto(): UserRegistrationDto {
