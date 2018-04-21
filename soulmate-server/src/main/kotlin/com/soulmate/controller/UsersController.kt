@@ -1,5 +1,7 @@
 package com.soulmate.controller
 
+import Endpoints.Companion.API_USERS
+import Endpoints.Companion.USER_PROFILE_PATH
 import dtos.UserAccountDto
 import com.soulmate.mapping.toUserAccount
 import com.soulmate.mapping.toUserAccountDto
@@ -8,30 +10,24 @@ import com.soulmate.security.authorizationServer.MemberDetails
 import com.soulmate.services.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.Authentication
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import java.util.*
 
 
-//@RestController(value = "/users")
 @RestController
+@RequestMapping(API_USERS)
 class UsersController {
 
     @Autowired
     lateinit var userService: UserService
 
-
-    @GetMapping(value = ["/users"])
+    @GetMapping
     fun getUserAccounts(): Iterable<UserAccountDto> {
-        userService.addUser(UserAccount("dmitry", "vychikov"))
         val users = userService.getUsers()
-        val map = users.map { userAccount -> userAccount.toUserAccountDto()}
-        return map
+        return users.map { userAccount -> userAccount.toUserAccountDto()}
     }
 
-    @GetMapping(value = ["/profile"])
+    @GetMapping(value = [USER_PROFILE_PATH])
     fun getUserProfile(authentication: Authentication): UserAccountDto? {
         val memberDetails = authentication.principal as MemberDetails
         val userAccount = userService.getUser(memberDetails.member.id)
@@ -40,7 +36,7 @@ class UsersController {
         return map
     }
 
-    @PutMapping(value = ["/profile"])
+    @PutMapping(value = [USER_PROFILE_PATH])
     fun updateUserProfile(authentication: Authentication, @RequestBody userAccountDto: UserAccountDto) {
         val memberDetails: MemberDetails = authentication.principal as MemberDetails
         val existingUserAccount: Optional<UserAccount> = userService.getUser(memberDetails.member.id)
@@ -53,4 +49,5 @@ class UsersController {
             userService.updateUser(it)
         }
     }
+
 }
