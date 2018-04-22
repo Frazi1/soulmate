@@ -1,6 +1,6 @@
 package com.soulmate.validation.registarion
 
-import com.soulmate.mapping.toMember
+import com.soulmate.models.mapping.toMember
 import com.soulmate.models.Member
 import com.soulmate.services.MemberService
 import dtos.UserRegistrationDto

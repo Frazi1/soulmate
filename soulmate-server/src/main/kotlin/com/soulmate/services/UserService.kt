@@ -1,6 +1,6 @@
 package com.soulmate.services
 
-import com.soulmate.mapping.toAccountEstimationDto
+import com.soulmate.models.mapping.toAccountEstimationDto
 import com.soulmate.models.UserAccount
 import com.soulmate.repositories.UserRepository
 import com.soulmate.validation.exceptions.SoulmateUserDoesNotExistException

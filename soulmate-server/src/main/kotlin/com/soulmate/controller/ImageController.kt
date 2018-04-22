@@ -1,7 +1,7 @@
 package com.soulmate.controller
 
 import Endpoints.Companion.API_IMAGE
-import com.soulmate.mapping.toProfileImage
+import com.soulmate.models.mapping.toProfileImage
 import com.soulmate.security.authorizationServer.MemberDetails
 import com.soulmate.services.ImageService
 import dtos.ProfileImageDto

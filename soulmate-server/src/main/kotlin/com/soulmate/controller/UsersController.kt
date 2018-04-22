@@ -3,8 +3,8 @@ package com.soulmate.controller
 import Endpoints.Companion.API_USERS
 import Endpoints.Companion.USER_PROFILE_PATH
 import dtos.UserAccountDto
-import com.soulmate.mapping.toUserAccount
-import com.soulmate.mapping.toUserAccountDto
+import com.soulmate.models.mapping.toUserAccount
+import com.soulmate.models.mapping.toUserAccountDto
 import com.soulmate.models.UserAccount
 import com.soulmate.security.authorizationServer.MemberDetails
 import com.soulmate.services.UserService

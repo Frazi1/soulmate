@@ -1,4 +1,4 @@
-package com.soulmate.mapping
+package com.soulmate.models.mapping
 
 import dtos.UserAccountDto
 import com.soulmate.models.Member

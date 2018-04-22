@@ -1,7 +1,7 @@
 package com.soulmate.controller
 
 import Endpoints.Companion.API_REGISTRATION
-import com.soulmate.mapping.toMember
+import com.soulmate.models.mapping.toMember
 import com.soulmate.services.MemberService
 import com.soulmate.services.UserService
 import com.soulmate.validation.registarion.RegistrationMemberValidator
