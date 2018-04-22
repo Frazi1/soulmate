@@ -1,7 +1,6 @@
 package com.soulmate.controller
 
 import Endpoints.Companion.API_ESTIMATION
-import com.soulmate.models.UserAccount
 import com.soulmate.security.authorizationServer.MemberDetails
 import com.soulmate.services.UserService
 import dtos.AccountEstimationDto
@@ -27,7 +26,7 @@ class EstimationController {
     @PostMapping("{id}")
     fun addLikeEstimationForUserAccount(@PathVariable("id") id: Long, authentication: Authentication): ResponseEntity<HttpStatus> {
         val currentUser = authentication.principal as MemberDetails
-        userService.addLikeFromUserAccountTo(currentUser.member.id, id)
+        userService.addLikeEstimationForUserAccount(currentUser.member.id, id)
         return ResponseEntity(HttpStatus.CREATED)
     }
 

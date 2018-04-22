@@ -3,6 +3,7 @@ package com.soulmate.services
 import com.soulmate.mapping.toAccountEstimationDto
 import com.soulmate.models.UserAccount
 import com.soulmate.repositories.UserRepository
+import com.soulmate.validation.exceptions.SoulmateUserDoesNotExistException
 import dtos.AccountEstimationDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -27,32 +28,25 @@ class UserService {
 
     fun updateUser(userAccount: UserAccount) = userRepository.save(userAccount)
 
-    fun getUsersForEstimation(userId: Long): Iterable<AccountEstimationDto> {
-        val userAccount = userRepository.findById(userId)
-        val ids: List<Long> = userAccount.get().likedCollection
+    fun getUsersForEstimation(currentUserId: Long): Iterable<AccountEstimationDto> {
+        val userAccountEntity = userRepository.findById(currentUserId).orElseThrow { SoulmateUserDoesNotExistException(currentUserId) }
+        val alreadyEstimatedUserIds: List<Long> = userAccountEntity.likedCollection
                 .map { it.id }
-                .plus(userId)
-        val notEstimatedUsers = userRepository.findUserAccountsNotIn(ids)
-        val map = notEstimatedUsers
-                .map { it.toAccountEstimationDto(userAccount.get()) }
-        return map
+                .plus(currentUserId) //Add the current user to exclude him from the results
+        val notEstimatedUsers = userRepository.findUserAccountsNotIn(alreadyEstimatedUserIds)
+        return notEstimatedUsers.map { it.toAccountEstimationDto(userAccountEntity) }
     }
 
-    fun addLikeFromUserAccountTo(sourceId: Long, destinationId: Long) {
-        val source = userRepository.findById(sourceId)
-        val destination = userRepository.findById(destinationId)
-        if (source.isPresent && destination.isPresent) {
-            val sourceEntity = source.get()
-            sourceEntity.likedCollection.add(destination.get())
-            userRepository.save(sourceEntity)
-        }
+    fun addLikeEstimationForUserAccount(currentUserId: Long, likedUserId: Long) {
+        val currentUser = userRepository.findById(currentUserId).orElseThrow { SoulmateUserDoesNotExistException(currentUserId) }
+        val likedUser = userRepository.findById(likedUserId).orElseThrow { SoulmateUserDoesNotExistException(likedUserId) }
+        currentUser.likedCollection.add(likedUser)
+        userRepository.save(currentUser)
     }
 
-    fun undoLikeEstimationForUserAccount(currentUserId: Long, userIdToRemove: Long) {
-        val currentUser = userRepository.findById(currentUserId)
-        currentUser.ifPresent {
-            it.likedCollection.removeIf {it.id == userIdToRemove}
-            userRepository.save(it)
-        }
+    fun undoLikeEstimationForUserAccount(currentUserId: Long, unlikedUserId: Long) {
+        val currentUser = userRepository.findById(currentUserId).orElseThrow { SoulmateUserDoesNotExistException(currentUserId) }
+        currentUser.likedCollection.removeIf { it.id == unlikedUserId }
+        userRepository.save(currentUser)
     }
 }
