@@ -33,14 +33,14 @@ class UserAccount {
     @OneToMany(mappedBy = "userAccount", fetch = FetchType.EAGER)
     var profileImages: Set<ProfileImage> = setOf()
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_likes",
             joinColumns = [(JoinColumn(name = "like_source", referencedColumnName = "id"))],
             inverseJoinColumns = [(JoinColumn(name = "like_destinantion", referencedColumnName = "id"))])
-    var likedCollection: List<UserAccount> = listOf()
+    var likedCollection: MutableCollection<UserAccount> = mutableListOf()
 
-    @ManyToMany(mappedBy = "likedCollection")
-    var likedByCollection: List<UserAccount> = listOf()
+    @ManyToMany(mappedBy = "likedCollection", fetch = FetchType.EAGER)
+    var likedByCollection: MutableCollection<UserAccount> = mutableListOf()
 
 
     constructor(id: Long, member: Member?, firstName: String?, lastName: String?, gender: GenderType, personalStory: String)

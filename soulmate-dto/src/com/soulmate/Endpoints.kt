@@ -8,5 +8,6 @@ class Endpoints {
         const val API_REGISTRATION = "$PREFIX/registration"
 
         const val API_IMAGE = "$PREFIX/image"
+        const val API_ESTIMATION = "$PREFIX/estimation"
     }
 }
