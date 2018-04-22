@@ -1,7 +1,6 @@
 package com.soulmate.controller
 
 import Endpoints.Companion.API_IMAGE
-import com.soulmate.models.mapping.toProfileImage
 import com.soulmate.security.authorizationServer.MemberDetails
 import com.soulmate.services.ImageService
 import dtos.ProfileImageDto
@@ -21,9 +20,7 @@ class ImageController {
 
     @PostMapping
     fun uploadProfileImage(authentication: Authentication, @RequestBody profileImageDto: ProfileImageDto) {
-        val profileImage = profileImageDto.toProfileImage()
         val memberDetails = authentication.principal as MemberDetails
-        profileImage.userAccount = memberDetails.member.userAccount
-        imageService.save(profileImage)
+        imageService.uploadProfileImage(memberDetails.member.userAccount, profileImageDto)
     }
 }
