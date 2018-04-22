@@ -30,11 +30,11 @@ fun UserAccount.toAccountEstimationDto(userAccountToCheck: UserAccount): Account
     )
 }
 
-fun UserAccountDto.toUserAccount(): UserAccount {
-    return this.toUserAccount(UserAccount())
+fun UserAccountDto.toExistingUserAccount(): UserAccount {
+    return this.toExistingUserAccount(UserAccount())
 }
 
-fun UserAccountDto.toUserAccount(userAccount: UserAccount): UserAccount {
+fun UserAccountDto.toExistingUserAccount(userAccount: UserAccount): UserAccount {
     userAccount.id = id
     userAccount.firstName = firstName
     userAccount.lastName = lastName
