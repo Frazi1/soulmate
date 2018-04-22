@@ -2,22 +2,21 @@ package com.soulmate.services
 
 import com.soulmate.models.Member
 import com.soulmate.models.UserAccount
+import com.soulmate.models.mapping.toMember
 import com.soulmate.repositories.MemberRepository
 import com.soulmate.repositories.UserRepository
 import com.soulmate.security.authorizationServer.MemberDetails
+import dtos.UserRegistrationDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Service
 
 @Service(value = "MemberService")
-class MemberService : UserDetailsService/*, ClientDetailsService*/ {
+class MemberService : UserDetailsService {
 
     @Autowired
     private lateinit var memberRepository: MemberRepository
-
-    @Autowired
-    lateinit var userRepository: UserRepository
 
     fun getByEmail(email: String): Member? = memberRepository.findByEmail(email)
     fun exists(email: String): Boolean = memberRepository.existsByEmail(email)
@@ -30,18 +29,11 @@ class MemberService : UserDetailsService/*, ClientDetailsService*/ {
             null
     }
 
-//    fun add(member: Member) {
-//        memberRepository.save(member)
-//    }
-
-    fun registerMember(member: Member) {
+    fun registerMember(userRegistrationDto: UserRegistrationDto) {
+        val member = userRegistrationDto.toMember()
         val userAccount = UserAccount()
         member.userAccount = userAccount
         userAccount.member = member
         memberRepository.save(member)
     }
-
-//    override fun loadClientByClientId(id: String): ClientDetails {
-//
-//    }
 }

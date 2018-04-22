@@ -16,22 +16,18 @@ import javax.validation.Valid
 class RegistrationController {
 
     @Autowired
-    private lateinit var userService: UserService
-
-    @Autowired
     private lateinit var memberService: MemberService
 
     @Autowired
     lateinit var registrationMemberValidator: RegistrationMemberValidator
 
-    @InitBinder(/*"userRegistrationDto"*/)
+    @InitBinder()
     fun setBinder(binder: WebDataBinder) {
         binder.addValidators(registrationMemberValidator)
     }
 
     @PostMapping
     fun register(@Valid @RequestBody userRegistrationDto: UserRegistrationDto) {
-        val member = userRegistrationDto.toMember()
-        memberService.registerMember(member)
+        memberService.registerMember(userRegistrationDto)
     }
 }
