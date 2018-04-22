@@ -4,6 +4,8 @@ import com.soulmate.models.ProfileImage
 import com.soulmate.repositories.ImageRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import retrofit2.Call
+import retrofit2.http.*
 import javax.transaction.Transactional
 
 @Service
@@ -33,4 +35,6 @@ class ImageService {
             }
         }
     }
+
+
 }
