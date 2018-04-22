@@ -1,6 +1,5 @@
 package com.soulmate.controller
 
-import com.soulmate.mapping.toProfileImage
 import com.soulmate.security.authorizationServer.MemberDetails
 import com.soulmate.services.ImageService
 import com.sun.deploy.net.HttpUtils
@@ -37,7 +36,7 @@ import org.json.JSONObject
 
 
 @RestController
-@RequestMapping(value = ["/image"])
+@RequestMapping(value = ["api/image"])
 class ImageController {
 
     @Autowired
@@ -48,10 +47,8 @@ class ImageController {
 
     @PostMapping
     fun uploadProfileImage(authentication: Authentication, @RequestBody profileImageDto: ProfileImageDto) {
-        val profileImage = profileImageDto.toProfileImage()
         val memberDetails = authentication.principal as MemberDetails
-        profileImage.userAccount = memberDetails.member.userAccount
-        imageService.save(profileImage)
+        imageService.uploadProfileImage(memberDetails.member.userAccount, profileImageDto)
     }
 
 

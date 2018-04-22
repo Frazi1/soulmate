@@ -47,7 +47,7 @@ class OAuth2SecurityConfiguration : WebSecurityConfigurerAdapter() {
                 .anonymous().disable()
                 .authorizeRequests()
                 .antMatchers("/oauth/token").permitAll()
-                .antMatchers("/registration/**").permitAll()
+                .antMatchers("/api/registration/**").permitAll()
     }
 
     @Bean(name = [(BeanIds.AUTHENTICATION_MANAGER)])

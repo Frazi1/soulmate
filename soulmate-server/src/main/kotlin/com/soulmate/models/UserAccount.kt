@@ -1,6 +1,7 @@
 package com.soulmate.models
 
 import dtos.GenderType
+import org.apache.catalina.User
 import javax.persistence.*
 
 
@@ -23,14 +24,23 @@ class UserAccount {
     @Column(name = "last_name")
     var lastName: String? = null
 
-    @OneToMany(mappedBy = "userAccount", fetch = FetchType.EAGER)
-    var profileImages: Set<ProfileImage> = setOf()
-
     @Column(name = "gender")
     var gender: GenderType = GenderType.NotDefined
 
     @Column(name = "personal_story")
     var personalStory: String = ""
+
+    @OneToMany(mappedBy = "userAccount", fetch = FetchType.EAGER)
+    var profileImages: Set<ProfileImage> = setOf()
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_likes",
+            joinColumns = [(JoinColumn(name = "like_source", referencedColumnName = "id"))],
+            inverseJoinColumns = [(JoinColumn(name = "like_destinantion", referencedColumnName = "id"))])
+    var likedCollection: MutableCollection<UserAccount> = mutableListOf()
+
+    @ManyToMany(mappedBy = "likedCollection", fetch = FetchType.EAGER)
+    var likedByCollection: MutableCollection<UserAccount> = mutableListOf()
 
 
     constructor(id: Long, member: Member?, firstName: String?, lastName: String?, gender: GenderType, personalStory: String)

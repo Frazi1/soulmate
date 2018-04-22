@@ -1,56 +1,35 @@
 package com.soulmate.controller
 
-import dtos.UserAccountDto
-import com.soulmate.mapping.toUserAccount
-import com.soulmate.mapping.toUserAccountDto
-import com.soulmate.models.UserAccount
 import com.soulmate.security.authorizationServer.MemberDetails
 import com.soulmate.services.UserService
+import dtos.UserAccountDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.Authentication
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RestController
-import java.util.*
+import org.springframework.web.bind.annotation.*
 
 
-//@RestController(value = "/users")
 @RestController
+@RequestMapping("api/users")
 class UsersController {
 
     @Autowired
     lateinit var userService: UserService
 
-
-    @GetMapping(value = ["/users"])
+    @GetMapping
     fun getUserAccounts(): Iterable<UserAccountDto> {
-        userService.addUser(UserAccount("dmitry", "vychikov"))
-        val users = userService.getUsers()
-        val map = users.map { userAccount -> userAccount.toUserAccountDto()}
-        return map
+        return userService.getUsers()
     }
 
     @GetMapping(value = ["/profile"])
-    fun getUserProfile(authentication: Authentication): UserAccountDto? {
+    fun getUserProfile(authentication: Authentication): UserAccountDto {
         val memberDetails = authentication.principal as MemberDetails
-        val userAccount = userService.getUser(memberDetails.member.id)
-
-        val map = userAccount.get().toUserAccountDto()
-        return map
+        return userService.getUser(memberDetails.member.id)
     }
 
     @PutMapping(value = ["/profile"])
     fun updateUserProfile(authentication: Authentication, @RequestBody userAccountDto: UserAccountDto) {
-        val memberDetails: MemberDetails = authentication.principal as MemberDetails
-        val existingUserAccount: Optional<UserAccount> = userService.getUser(memberDetails.member.id)
-        val updatedUserAccount: UserAccount = userAccountDto.toUserAccount()
-        existingUserAccount.ifPresent {
-//            it.firstName = updatedUserAccount.firstName
-//            it.lastName = updatedUserAccount.lastName
-//            it.personalStory = updatedUserAccount.personalStory
-            userAccountDto.toUserAccount(it)
-            userService.updateUser(it)
-        }
+        //TODO DV: SECURITY check if userAccountDto ID is the same as the authenticated user id
+        userService.updateUser(userAccountDto)
     }
+
 }
