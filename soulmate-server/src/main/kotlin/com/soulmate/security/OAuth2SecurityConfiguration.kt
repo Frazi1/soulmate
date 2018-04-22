@@ -1,6 +1,5 @@
 package com.soulmate.security
 
-import Endpoints.Companion.API_REGISTRATION
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
@@ -48,7 +47,7 @@ class OAuth2SecurityConfiguration : WebSecurityConfigurerAdapter() {
                 .anonymous().disable()
                 .authorizeRequests()
                 .antMatchers("/oauth/token").permitAll()
-                .antMatchers("/$API_REGISTRATION/**").permitAll()
+                .antMatchers("/api/registration/**").permitAll()
     }
 
     @Bean(name = [(BeanIds.AUTHENTICATION_MANAGER)])

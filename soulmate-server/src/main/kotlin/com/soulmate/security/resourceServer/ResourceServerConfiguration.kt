@@ -1,6 +1,5 @@
 package com.soulmate.security.resourceServer
 
-import Endpoints.Companion.API_REGISTRATION
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer
@@ -25,7 +24,7 @@ class ResourceServerConfiguration : ResourceServerConfigurerAdapter() {
                 .and().anonymous().disable()*/
                 .requestMatchers().antMatchers("/**")
                 .and().authorizeRequests()
-                .antMatchers("/$API_REGISTRATION/**").permitAll()
+                .antMatchers("/api/registration/**").permitAll()
                 .antMatchers("/**").authenticated()
                 .and().exceptionHandling().accessDeniedHandler(OAuth2AccessDeniedHandler())
 

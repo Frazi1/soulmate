@@ -1,6 +1,5 @@
 package com.soulmate.controller
 
-import Endpoints.Companion.API_IMAGE
 import com.soulmate.security.authorizationServer.MemberDetails
 import com.soulmate.services.ImageService
 import dtos.ProfileImageDto
@@ -12,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping(value = [API_IMAGE])
+@RequestMapping(value = ["api/image"])
 class ImageController {
 
     @Autowired

@@ -1,9 +1,6 @@
 package com.soulmate.controller
 
-import Endpoints.Companion.API_REGISTRATION
-import com.soulmate.models.mapping.toMember
 import com.soulmate.services.MemberService
-import com.soulmate.services.UserService
 import com.soulmate.validation.registarion.RegistrationMemberValidator
 import dtos.UserRegistrationDto
 import org.springframework.beans.factory.annotation.Autowired
@@ -12,7 +9,7 @@ import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
 
 @RestController
-@RequestMapping(value = [API_REGISTRATION])
+@RequestMapping(value = ["api/registration"])
 class RegistrationController {
 
     @Autowired

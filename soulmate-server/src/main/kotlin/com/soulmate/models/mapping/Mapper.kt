@@ -4,7 +4,7 @@ import dtos.UserAccountDto
 import com.soulmate.models.Member
 import com.soulmate.models.ProfileImage
 import com.soulmate.models.UserAccount
-import dtos.AccountEstimationDto
+import dtos.ProfileEstimationDto
 import dtos.ProfileImageDto
 import dtos.UserRegistrationDto
 
@@ -18,8 +18,8 @@ fun UserAccount.toUserAccountDto(): UserAccountDto {
             personalStory)
 }
 
-fun UserAccount.toAccountEstimationDto(userAccountToCheck: UserAccount): AccountEstimationDto {
-    return AccountEstimationDto(
+fun UserAccount.toAccountEstimationDto(userAccountToCheck: UserAccount): ProfileEstimationDto {
+    return ProfileEstimationDto(
             id,
             firstName,
             lastName,

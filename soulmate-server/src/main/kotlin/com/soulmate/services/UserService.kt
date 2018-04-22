@@ -6,7 +6,7 @@ import com.soulmate.models.mapping.toExistingUserAccount
 import com.soulmate.models.mapping.toUserAccountDto
 import com.soulmate.repositories.UserRepository
 import com.soulmate.validation.exceptions.UserDoesNotExistException
-import dtos.AccountEstimationDto
+import dtos.ProfileEstimationDto
 import dtos.UserAccountDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -39,7 +39,7 @@ class UserService {
     }
 
 
-    fun getUsersForEstimation(currentUserId: Long): Iterable<AccountEstimationDto> {
+    fun getUsersForEstimation(currentUserId: Long): Iterable<ProfileEstimationDto> {
         val userAccountEntity = userRepository.findById(currentUserId).orElseThrow { UserDoesNotExistException(currentUserId) }
         val alreadyEstimatedUserIds: List<Long> = userAccountEntity.likedCollection
                 .map { it.id }
