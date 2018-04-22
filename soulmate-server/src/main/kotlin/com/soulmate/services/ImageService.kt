@@ -1,7 +1,10 @@
 package com.soulmate.services
 
 import com.soulmate.models.ProfileImage
+import com.soulmate.models.UserAccount
+import com.soulmate.models.mapping.toProfileImage
 import com.soulmate.repositories.ImageRepository
+import dtos.ProfileImageDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import javax.transaction.Transactional
@@ -32,5 +35,11 @@ class ImageService {
                 updateMainProfileImage(it.id, profileImage.id)
             }
         }
+    }
+
+    fun uploadProfileImage(currentUserAccount: UserAccount?, profileImageDto: ProfileImageDto) {
+        val profileImage = profileImageDto.toProfileImage()
+        profileImage.userAccount = currentUserAccount
+        save(profileImage)
     }
 }

@@ -1,7 +1,7 @@
 package com.soulmate.controller
 
 import Endpoints.Companion.API_REGISTRATION
-import com.soulmate.mapping.toMember
+import com.soulmate.models.mapping.toMember
 import com.soulmate.services.MemberService
 import com.soulmate.services.UserService
 import com.soulmate.validation.registarion.RegistrationMemberValidator
@@ -16,22 +16,18 @@ import javax.validation.Valid
 class RegistrationController {
 
     @Autowired
-    private lateinit var userService: UserService
-
-    @Autowired
     private lateinit var memberService: MemberService
 
     @Autowired
     lateinit var registrationMemberValidator: RegistrationMemberValidator
 
-    @InitBinder(/*"userRegistrationDto"*/)
+    @InitBinder()
     fun setBinder(binder: WebDataBinder) {
         binder.addValidators(registrationMemberValidator)
     }
 
     @PostMapping
     fun register(@Valid @RequestBody userRegistrationDto: UserRegistrationDto) {
-        val member = userRegistrationDto.toMember()
-        memberService.registerMember(member)
+        memberService.registerMember(userRegistrationDto)
     }
 }
