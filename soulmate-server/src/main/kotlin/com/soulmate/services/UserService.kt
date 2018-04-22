@@ -55,9 +55,18 @@ class UserService {
         userRepository.save(currentUser)
     }
 
-    fun undoLikeEstimationForUserAccount(currentUserId: Long, unlikedUserId: Long) {
+    fun undoLikeEstimationForUserAccount(currentUserId: Long, unlikedUserIds: Iterable<Long>) {
         val currentUser = userRepository.findById(currentUserId).orElseThrow { UserDoesNotExistException(currentUserId) }
-        currentUser.likedCollection.removeIf { it.id == unlikedUserId }
-        userRepository.save(currentUser)
+        undoLikeEstimationForUserAccountInternal(currentUser, unlikedUserIds)
+    }
+
+    fun undoAllLikeEstimationsForUserAccount(currentUserId: Long) {
+        val currentUser = userRepository.findById(currentUserId).orElseThrow { UserDoesNotExistException(currentUserId) }
+        undoLikeEstimationForUserAccountInternal(currentUser, currentUser.likedCollection.map { it.id })
+    }
+
+    private fun undoLikeEstimationForUserAccountInternal(userAccount: UserAccount, unlikedUserIds: Iterable<Long>) {
+        userAccount.likedCollection.removeIf { unlikedUserIds.contains(it.id) }
+        userRepository.save(userAccount)
     }
 }

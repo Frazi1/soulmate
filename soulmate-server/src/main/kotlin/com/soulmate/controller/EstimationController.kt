@@ -32,7 +32,14 @@ class EstimationController {
     @DeleteMapping("{id}")
     fun undoLikeEstimationForUserAccount(@PathVariable("id") id: Long, authentication: Authentication): ResponseEntity<HttpStatus> {
         val currentUser = authentication.principal as MemberDetails
-        userService.undoLikeEstimationForUserAccount(currentUser.member.id, id)
+        userService.undoLikeEstimationForUserAccount(currentUser.member.id, listOf(id))
+        return ResponseEntity(HttpStatus.OK)
+    }
+
+    @DeleteMapping("/all")
+    fun undoAllLikeEstimations(authentication: Authentication): ResponseEntity<HttpStatus> {
+        val currentMemberDetails = authentication.principal as MemberDetails
+        userService.undoAllLikeEstimationsForUserAccount(currentMemberDetails.member.id)
         return ResponseEntity(HttpStatus.OK)
     }
 }
