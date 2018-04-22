@@ -4,17 +4,30 @@ import dtos.UserAccountDto
 import com.soulmate.models.Member
 import com.soulmate.models.ProfileImage
 import com.soulmate.models.UserAccount
+import dtos.AccountEstimationDto
 import dtos.ProfileImageDto
 import dtos.UserRegistrationDto
 
 fun UserAccount.toUserAccountDto(): UserAccountDto {
     return UserAccountDto(
-            this.id,
-            this.firstName,
-            this.firstName,
-            this.profileImages.map { it.toProfileImageDto() },
-            this.gender,
-            this.personalStory)
+            id,
+            firstName,
+            firstName,
+            profileImages.map { it.toProfileImageDto() },
+            gender,
+            personalStory)
+}
+
+fun UserAccount.toAccountEstimationDto(userAccountToCheck: UserAccount): AccountEstimationDto {
+    return AccountEstimationDto(
+            id,
+            firstName,
+            lastName,
+            profileImages.map { it.toProfileImageDto() },
+            gender,
+            personalStory,
+            likedCollection.any { it.id == userAccountToCheck.id }
+    )
 }
 
 fun UserAccountDto.toUserAccount(): UserAccount {
@@ -22,28 +35,28 @@ fun UserAccountDto.toUserAccount(): UserAccount {
 }
 
 fun UserAccountDto.toUserAccount(userAccount: UserAccount): UserAccount {
-    userAccount.id = this.id
-    userAccount.firstName = this.firstName
-    userAccount.lastName = this.lastName
-    userAccount.gender = this.gender
-    userAccount.personalStory = this.personalStory
+    userAccount.id = id
+    userAccount.firstName = firstName
+    userAccount.lastName = lastName
+    userAccount.gender = gender
+    userAccount.personalStory = personalStory
     return userAccount
 }
 
 fun Member.toUserRegistrationDto(): UserRegistrationDto {
-    return UserRegistrationDto(this.email,
-            this.passwordHash,
-            if (this.userAccount != null) this.userAccount!!.firstName!! else "")
+    return UserRegistrationDto(email, passwordHash,
+            if (userAccount != null) userAccount!!.firstName!! else ""
+    )
 }
 
 fun UserRegistrationDto.toMember(): Member {
-    return Member(this.email, this.passwordHash, null)
+    return Member(email, passwordHash, null)
 }
 
 fun ProfileImageDto.toProfileImage(): ProfileImage {
-    return ProfileImage(this.order, this.data, this.description, this.isMainImage)
+    return ProfileImage(order, data, description, isMainImage)
 }
 
 fun ProfileImage.toProfileImageDto(): ProfileImageDto {
-    return ProfileImageDto(this.order, this.data, this.description, this.isMainImage)
+    return ProfileImageDto(order, data, description, isMainImage)
 }
