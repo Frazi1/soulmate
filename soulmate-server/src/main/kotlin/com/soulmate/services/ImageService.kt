@@ -3,6 +3,7 @@ package com.soulmate.services
 import com.soulmate.models.ProfileImage
 import com.soulmate.models.UserAccount
 import com.soulmate.models.mapping.toProfileImage
+import com.soulmate.models.mapping.toProfileImageDto
 import com.soulmate.repositories.ImageRepository
 import dtos.ProfileImageDto
 import org.springframework.beans.factory.annotation.Autowired
@@ -41,5 +42,9 @@ class ImageService {
         val profileImage = profileImageDto.toProfileImage()
         profileImage.userAccount = currentUserAccount
         save(profileImage)
+    }
+
+    fun getMainProfileImage(userId: Long): ProfileImageDto {
+        return imageRepository.findByUserAccountIdAndIsMainImageTrue(userId).toProfileImageDto()
     }
 }

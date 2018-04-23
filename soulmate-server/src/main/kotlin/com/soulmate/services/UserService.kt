@@ -1,7 +1,7 @@
 package com.soulmate.services
 
-import com.soulmate.models.mapping.toAccountEstimationDto
 import com.soulmate.models.UserAccount
+import com.soulmate.models.mapping.toAccountEstimationDto
 import com.soulmate.models.mapping.toExistingUserAccount
 import com.soulmate.models.mapping.toUserAccountDto
 import com.soulmate.repositories.UserRepository
@@ -18,6 +18,9 @@ class UserService {
     @Autowired
     private lateinit var userRepository: UserRepository
 
+    @Autowired
+    private lateinit var imageService: ImageService
+
     fun addUser(u: UserAccount) {
         userRepository.save(u)
     }
@@ -27,8 +30,9 @@ class UserService {
     }
 
     fun getUser(id: Long): UserAccountDto {
-        return userRepository.findById(id).orElseThrow { UserDoesNotExistException(id) }
-                .toUserAccountDto()
+        val userAccount = userRepository.findById(id).orElseThrow { UserDoesNotExistException(id) }
+        val mainImageDto = imageService.getMainProfileImage(userAccount.id)
+        return userAccount.toUserAccountDto(mutableListOf(mainImageDto))
     }
 
     fun updateUser(userAccountDto: UserAccountDto) {

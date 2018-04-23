@@ -1,19 +1,22 @@
 package com.soulmate.models.mapping
 
-import dtos.UserAccountDto
 import com.soulmate.models.Member
 import com.soulmate.models.ProfileImage
 import com.soulmate.models.UserAccount
 import dtos.ProfileEstimationDto
 import dtos.ProfileImageDto
+import dtos.UserAccountDto
 import dtos.UserRegistrationDto
 
-fun UserAccount.toUserAccountDto(): UserAccountDto {
+fun UserAccount.toUserAccountDto(
+        profileImages: MutableCollection<ProfileImageDto> = this.profileImages
+                .map { it.toProfileImageDto() }
+                .toMutableList()): UserAccountDto {
     return UserAccountDto(
             id,
             firstName,
             firstName,
-            profileImages.map { it.toProfileImageDto() },
+            profileImages,
             gender,
             personalStory)
 }
