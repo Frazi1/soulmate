@@ -45,6 +45,8 @@ class ImageService {
     }
 
     fun getMainProfileImage(userId: Long): ProfileImageDto {
-        return imageRepository.findByUserAccountIdAndIsMainImageTrue(userId).toProfileImageDto()
+        return imageRepository.findByUserAccountIdAndIsMainImageTrue(userId)
+                .orElse(ProfileImage())
+                .toProfileImageDto()
     }
 }
