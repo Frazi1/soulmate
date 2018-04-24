@@ -9,14 +9,13 @@ import dtos.UserAccountDto
 import dtos.UserRegistrationDto
 
 fun UserAccount.toUserAccountDto(
-        profileImages: MutableCollection<ProfileImageDto> = this.profileImages
-                .map { it.toProfileImageDto() }
-                .toMutableList()): UserAccountDto {
+        profileImages: Iterable<ProfileImageDto> = this.profileImages
+                .map { it.toProfileImageDto() }): UserAccountDto {
     return UserAccountDto(
             id,
             firstName,
             firstName,
-            profileImages,
+            profileImages.toMutableList(),
             gender,
             personalStory)
 }
@@ -60,6 +59,6 @@ fun ProfileImageDto.toProfileImage(): ProfileImage {
     return ProfileImage(order, data, description, isMainImage)
 }
 
-fun ProfileImage.toProfileImageDto(): ProfileImageDto {
+fun ProfileImage.toProfileImageDto(data: ByteArray = this.data!!): ProfileImageDto {
     return ProfileImageDto(order, data, description, isMainImage)
 }

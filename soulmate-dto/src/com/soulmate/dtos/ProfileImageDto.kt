@@ -1,6 +1,8 @@
 package dtos
 
+import dtos.interfaces.IImage
+
 data class ProfileImageDto(var order: Int = 1,
-                           var data: ByteArray? = null,
+                           override var data: ByteArray? = ByteArray(DEFAULT_BUFFER_SIZE),
                            var description: String = "",
-                           var isMainImage: Boolean = false)
+                           var isMainImage: Boolean = false) : IImage

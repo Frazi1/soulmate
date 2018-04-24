@@ -1,23 +1,24 @@
 package com.soulmate.models
 
+import dtos.interfaces.IImage
 import javax.persistence.*
 
 @Suppress("unused")
 @Entity
 @Table(name = "images")
-class ProfileImage {
+class ProfileImage: IEntity, IImage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    var id: Long = 0
+    override var id: Long = 0
 
     @Column(name = "profile_order")
     var order: Int = 0
 
     @Column(name = "data")
     @Lob
-    var data: ByteArray? = null
+    override var data: ByteArray? = null
 
     @Column(name = "description")
     var description: String = ""

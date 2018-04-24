@@ -12,6 +12,7 @@
         <mysql-connector.version>5.1.45</mysql-connector.version>
         <jackson-module-kotlin.version>2.9.4.1</jackson-module-kotlin.version>
         <retrofit.version>2.3.0</retrofit.version>
+        <img-scalr.version>4.2</img-scalr.version>
     </properties>
     <packaging>jar</packaging>
 
@@ -124,6 +125,12 @@
             <groupId>com.squareup.retrofit2</groupId>
             <artifactId>retrofit</artifactId>
             <version>${retrofit.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.imgscalr</groupId>
+            <artifactId>imgscalr-lib</artifactId>
+            <version>${img-scalr.version}</version>
         </dependency>
     </dependencies>
 
