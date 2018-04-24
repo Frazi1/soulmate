@@ -27,8 +27,10 @@ fun UserAccount.toAccountEstimationDto(userAccountToCheck: UserAccount): Profile
             lastName,
             profileImages.map { it.toProfileImageDto() },
             gender,
-            personalStory,
-            likedCollection.any { it.id == userAccountToCheck.id }
+            personalStory
+            //TODO: get the property back
+//            ,
+//            likedCollection.any { it.id == userAccountToCheck.id }
     )
 }
 

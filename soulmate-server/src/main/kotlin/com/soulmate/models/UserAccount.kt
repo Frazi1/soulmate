@@ -32,14 +32,11 @@ class UserAccount {
     @OneToMany(mappedBy = "userAccount", fetch = FetchType.LAZY)
     var profileImages: MutableCollection<ProfileImage> = mutableListOf()
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_likes",
-            joinColumns = [(JoinColumn(name = "like_source", referencedColumnName = "id"))],
-            inverseJoinColumns = [(JoinColumn(name = "like_destinantion", referencedColumnName = "id"))])
-    var likedCollection: MutableCollection<UserAccount> = mutableListOf()
+    @OneToMany(mappedBy = "sourceUserAccount", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
+    var estimationCollection: MutableCollection<ProfileEstimation> = mutableListOf()
 
-    @ManyToMany(mappedBy = "likedCollection", fetch = FetchType.LAZY)
-    var likedByCollection: MutableCollection<UserAccount> = mutableListOf()
+    @OneToMany(mappedBy = "destinationUserAccount")
+    var estimatedByCollection: MutableCollection<ProfileEstimation> = mutableListOf()
 
 
     constructor(id: Long, member: Member?, firstName: String?, lastName: String?, gender: GenderType, personalStory: String)

@@ -1,5 +1,5 @@
 package com.soulmate.models
 
-interface IEntity {
+interface IEntityWithId {
     var id: Long
 }
