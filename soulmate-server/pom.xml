@@ -12,6 +12,7 @@
         <mysql-connector.version>5.1.45</mysql-connector.version>
         <jackson-module-kotlin.version>2.9.4.1</jackson-module-kotlin.version>
         <retrofit.version>2.3.0</retrofit.version>
+        <img-scalr.version>4.2</img-scalr.version>
     </properties>
     <packaging>jar</packaging>
 
@@ -125,6 +126,12 @@
             <artifactId>retrofit</artifactId>
             <version>${retrofit.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.imgscalr</groupId>
+            <artifactId>imgscalr-lib</artifactId>
+            <version>${img-scalr.version}</version>
+        </dependency>
         <dependency>
             <groupId>com.squareup.retrofit2</groupId>
             <artifactId>converter-gson</artifactId>
@@ -182,6 +189,27 @@
                         <version>${kotlin.version}</version>
                     </dependency>
                 </dependencies>
+
+                <executions>
+                    <execution>
+                        <id>kapt</id>
+                        <goals>
+                            <goal>kapt</goal>
+                        </goals>
+                        <configuration>
+                            <sourceDirs>
+                                <sourceDir>src/main/kotlin</sourceDir>
+                            </sourceDirs>
+                            <annotationProcessorPaths>
+                                <annotationProcessorPath>
+                                    <groupId>org.springframework.boot</groupId>
+                                    <artifactId>spring-boot-configuration-processor</artifactId>
+                                    <version>1.5.3.RELEASE</version>
+                                </annotationProcessorPath>
+                            </annotationProcessorPaths>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

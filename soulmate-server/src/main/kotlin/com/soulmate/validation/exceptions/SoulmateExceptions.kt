@@ -1,5 +1,5 @@
 package com.soulmate.validation.exceptions
 
-open class SoulmateBusinessException(message: String) : Exception(message)
+open class BusinessException(message: String) : Exception(message)
 
-class UserDoesNotExistException(userId: Long): SoulmateBusinessException("User with ID $userId does not exist")
+class UserDoesNotExistException(userId: Long): BusinessException("User with ID $userId does not exist")
