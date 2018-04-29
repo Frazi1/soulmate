@@ -7,7 +7,6 @@ import com.soulmate.models.mapping.toUserAccountDto
 import com.soulmate.repositories.UserRepository
 import com.soulmate.validation.exceptions.UserDoesNotExistException
 import dtos.ProfileEstimationDto
-import dtos.ProfileImageDto
 import dtos.UserAccountDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -32,11 +31,13 @@ class UserService {
 
     fun getUser(id: Long): UserAccountDto {
         val userAccount = userRepository.findById(id).orElseThrow { UserDoesNotExistException(id) }
-        val mainImageDto: ProfileImageDto? = imageService.getMainProfileImage(userAccount.id)
-        val userImages: MutableCollection<ProfileImageDto> = mutableListOf()
-        if(mainImageDto != null)
-            userImages.add(mainImageDto)
-        return userAccount.toUserAccountDto(userImages)
+//        val mainImageDto: UploadImageDto? = imageService.getMainProfileImage(userAccount.id)
+//        val userImages: MutableCollection<UploadImageDto> = mutableListOf()
+//        if(mainImageDto != null)
+//            userImages.add(mainImageDto)
+        val userAccountDto = userAccount.toUserAccountDto()
+        userAccountDto.profileImages = userAccountDto.profileImages.sortedBy { it.isMainImage }
+        return userAccountDto
     }
 
     fun updateUser(userAccountDto: UserAccountDto) {
