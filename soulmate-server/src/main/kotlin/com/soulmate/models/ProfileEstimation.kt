@@ -4,30 +4,35 @@ import java.io.Serializable
 import javax.persistence.*
 
 @Entity
-@IdClass(ProfileEstimationId::class)
+//@IdClass(ProfileEstimationId::class)
 @Table(name = "profile_estimations")
 class ProfileEstimation() : Serializable {
 
-    @Id
-    @ManyToOne(cascade = [CascadeType.ALL])
-    var sourceUserAccountId: Long = 0
+//    @Id
+//    @ManyToOne(cascade = [CascadeType.ALL])
+//    var sourceUserAccountId: Long = 0
     //
+//    @Id
+//    @ManyToOne(cascade = [CascadeType.ALL])
+//    var destinationUserAccountId: Long = 0
+
+//    @EmbeddedId
+//    lateinit var profileEstimationId: ProfileEstimationId
+
     @Id
+    var id: Long = 0
+
+//    @Id
     @ManyToOne(cascade = [CascadeType.ALL])
-    var destinationUserAccountId: Long = 0
-
-
-//    @Id
-//    @ManyToOne(cascade = [CascadeType.ALL])
-//    @JoinColumn(name = "source_user_id")
+    @JoinColumn(name = "source_user_id")
 //    @JoinColumn(/*name = "source_user_account_id",*/ referencedColumnName = "id")
-//    var sourceUserAccount: UserAccount? = null
+    var sourceUserAccount: UserAccount? = null
 
 //    @Id
-//    @ManyToOne(cascade = [CascadeType.ALL])
-//    @JoinColumn(name = "destination_user_id")
+    @ManyToOne(cascade = [CascadeType.ALL])
+    @JoinColumn(name = "destination_user_id")
 //    @JoinColumn(/*name = "destination_user_account_id",*/ referencedColumnName = "id")
-//    var destinationUserAccount: UserAccount? = null
+    var destinationUserAccount: UserAccount? = null
 
     @Column(name = "estimation")
     var estimation: Estimation = Estimation.NONE
@@ -37,11 +42,12 @@ class ProfileEstimation() : Serializable {
 //        this.destinationUserAccount = destinationUserAccount
 //        this.estimation = estimation
 //    }
-    constructor(sourceId: Long, destId: Long, estimation: Estimation) : this() {
-        this.sourceUserAccountId = sourceId
-        this.destinationUserAccountId = destId
+    constructor(sourceId: UserAccount, destId: UserAccount, estimation: Estimation) : this() {
+        this.sourceUserAccount = sourceId
+        this.destinationUserAccount = destId
         this.estimation = estimation
     }
+
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

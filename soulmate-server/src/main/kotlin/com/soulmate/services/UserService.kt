@@ -57,8 +57,9 @@ class UserService {
     fun getUsersForEstimation(currentUserId: Long): Iterable<ProfileEstimationDto> {
         val userAccountEntity = userRepository.findById(currentUserId).orElseThrow { UserDoesNotExistException(currentUserId) }
         val alreadyEstimatedUserIds: List<Long> = userAccountEntity.estimationCollection
-//                .mapNotNull { it.destinationUserAccount }
-                .map { it.destinationUserAccountId }
+                .mapNotNull { it.destinationUserAccount }
+                .map { it.id }
+//                .map { it.destinationUserAccountId }
                 .plus(currentUserId) //Add the current user to exclude him from the results
         val notEstimatedUsers = userRepository.findUserAccountsNotIn(alreadyEstimatedUserIds)
         val map = notEstimatedUsers.map { it.toAccountEstimationDto(userAccountEntity) }
@@ -84,26 +85,26 @@ class UserService {
     fun undoAllLikeEstimationsForUserAccount(currentUserId: Long) {
         val currentUser = userRepository.findById(currentUserId).orElseThrow { UserDoesNotExistException(currentUserId) }
         undoLikeEstimationForUserAccountInternal(currentUser, currentUser.estimationCollection
-//                .map { it.destinationUserAccount!!.id }
-                .map { it.destinationUserAccountId }
+                .map { it.destinationUserAccount!!.id }
+//                .map { it.destinationUserAccountId }
         )
     }
 
     private fun undoLikeEstimationForUserAccountInternal(userAccount: UserAccount, unlikedUserIds: Iterable<Long>) {
         val toDelete = userAccount.estimationCollection
                 .filter { unlikedUserIds.contains(
-//                        it.destinationUserAccount!!.id
-                it.destinationUserAccountId
+                        it.destinationUserAccount!!.id
+//                it.destinationUserAccountId
                 ) }
 //                .mapNotNull { it.sourceUserAccount }
 //                .map { it.id }
         userAccount.estimationCollection.removeIf { unlikedUserIds.
                 contains(
-//                        it.destinationUserAccount!!.id
-                it.destinationUserAccountId
+                        it.destinationUserAccount!!.id
+//                it.destinationUserAccountId
                 ) }
 
-        profileEstimationRepository.save(ProfileEstimation(userAccount.id, 2, Estimation.DISLIKE))
+//        profileEstimationRepository.save(ProfileEstimation(userAccount, Estimation.DISLIKE))
         userRepository.save(userAccount)
     }
 }
