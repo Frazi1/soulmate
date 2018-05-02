@@ -4,9 +4,8 @@ import com.soulmate.models.Member
 import com.soulmate.models.UserAccount
 import com.soulmate.models.mapping.toMember
 import com.soulmate.repositories.MemberRepository
-import com.soulmate.repositories.UserRepository
 import com.soulmate.security.authorizationServer.MemberDetails
-import dtos.UserRegistrationDto
+import com.soulmate.shared.dtos.UserRegistrationDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService

@@ -3,7 +3,7 @@ package com.soulmate.validation.registarion
 import com.soulmate.models.mapping.toMember
 import com.soulmate.models.Member
 import com.soulmate.services.MemberService
-import dtos.UserRegistrationDto
+import com.soulmate.shared.dtos.UserRegistrationDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.stereotype.Component

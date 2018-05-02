@@ -1,6 +1,6 @@
-package com.soulmate.dtos
+package com.soulmate.shared.dtos
 
-import com.soulmate.dtos.interfaces.IImage
+import com.soulmate.shared.dtos.interfaces.IImage
 
 class UploadImageDto(var order: Int = 1,
                      override var data: ByteArray? = ByteArray(DEFAULT_BUFFER_SIZE),

@@ -1,6 +1,6 @@
 package com.soulmate.services
 
-import com.soulmate.dtos.UploadImageDto
+import com.soulmate.shared.dtos.UploadImageDto
 import com.soulmate.models.ProfileImage
 import com.soulmate.models.UserAccount
 import com.soulmate.models.mapping.toProfileImage

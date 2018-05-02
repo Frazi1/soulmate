@@ -1,6 +1,6 @@
 package com.soulmate.models
 
-import com.soulmate.dtos.interfaces.IImage
+import com.soulmate.shared.dtos.interfaces.IImage
 import javax.persistence.*
 
 @Suppress("unused")

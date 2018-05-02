@@ -1,6 +1,6 @@
 package com.soulmate.models
 
-import dtos.GenderType
+import com.soulmate.shared.GenderType
 import javax.persistence.*
 
 

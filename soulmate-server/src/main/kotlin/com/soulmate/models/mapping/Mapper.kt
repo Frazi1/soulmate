@@ -3,10 +3,10 @@ package com.soulmate.models.mapping
 import com.soulmate.models.Member
 import com.soulmate.models.ProfileImage
 import com.soulmate.models.UserAccount
-import dtos.ProfileImageDto
-import com.soulmate.dtos.UploadImageDto
-import dtos.UserAccountDto
-import dtos.UserRegistrationDto
+import com.soulmate.shared.dtos.ProfileImageDto
+import com.soulmate.shared.dtos.UploadImageDto
+import com.soulmate.shared.dtos.UserAccountDto
+import com.soulmate.shared.dtos.UserRegistrationDto
 
 fun UserAccount.toUserAccountDto(): UserAccountDto {
     return UserAccountDto(

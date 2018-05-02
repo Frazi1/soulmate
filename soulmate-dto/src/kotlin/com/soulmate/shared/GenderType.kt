@@ -1,4 +1,4 @@
-package dtos
+package com.soulmate.shared
 
 enum class GenderType {
     NotDefined,

@@ -1,5 +1,8 @@
 package com.soulmate.validation
 
+import com.soulmate.shared.validation.ValidationFieldError
+import com.soulmate.shared.validation.ValidationGlobalError
+import com.soulmate.shared.validation.ValidationResponse
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
