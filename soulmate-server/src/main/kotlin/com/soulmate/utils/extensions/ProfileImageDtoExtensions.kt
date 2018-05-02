@@ -1,13 +1,13 @@
 package com.soulmate.utils.extensions
 
-import dtos.ProfileImageDto
+import dtos.UploadImageDto
 
-fun ProfileImageDto.getThumbnail(size: Int): ProfileImageDto {
+fun UploadImageDto.getThumbnail(size: Int): UploadImageDto {
     val clone = clone()
     clone.resize(size)
     return clone
 }
 
-fun ProfileImageDto.clone(): ProfileImageDto {
-    return ProfileImageDto(order, data, description, isMainImage)
+fun UploadImageDto.clone(): UploadImageDto {
+    return UploadImageDto(order, data, description, isMainImage)
 }

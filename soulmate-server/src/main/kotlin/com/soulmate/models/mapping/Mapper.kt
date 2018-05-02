@@ -3,19 +3,14 @@ package com.soulmate.models.mapping
 import com.soulmate.models.Member
 import com.soulmate.models.ProfileImage
 import com.soulmate.models.UserAccount
-import dtos.ProfileEstimationDto
-import dtos.ProfileImageDto
-import dtos.UserAccountDto
-import dtos.UserRegistrationDto
+import dtos.*
 
-fun UserAccount.toUserAccountDto(
-        profileImages: Iterable<ProfileImageDto> = this.profileImages
-                .map { it.toProfileImageDto() }): UserAccountDto {
+fun UserAccount.toUserAccountDto(): UserAccountDto {
     return UserAccountDto(
             id,
             firstName,
             firstName,
-            profileImages.toMutableList(),
+            profileImages.map { it.toProfileImageDto() },
             gender,
             personalStory)
 }
@@ -55,10 +50,14 @@ fun UserRegistrationDto.toMember(): Member {
     return Member(email, passwordHash, null)
 }
 
-fun ProfileImageDto.toProfileImage(): ProfileImage {
+fun UploadImageDto.toProfileImage(): ProfileImage {
     return ProfileImage(order, data, description, isMainImage)
 }
 
-fun ProfileImage.toProfileImageDto(data: ByteArray = this.data!!): ProfileImageDto {
-    return ProfileImageDto(order, data, description, isMainImage)
+fun ProfileImage.toUploadImage(data: ByteArray = this.data!!): UploadImageDto {
+    return UploadImageDto(order, data, description, isMainImage)
+}
+
+fun ProfileImage.toProfileImageDto(): ProfileImageDto {
+    return ProfileImageDto(id, description, isMainImage)
 }
