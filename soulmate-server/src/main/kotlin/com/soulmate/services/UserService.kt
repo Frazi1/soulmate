@@ -3,12 +3,10 @@ package com.soulmate.services
 import com.soulmate.models.Estimation
 import com.soulmate.models.ProfileEstimation
 import com.soulmate.models.UserAccount
-import com.soulmate.models.mapping.toAccountEstimationDto
 import com.soulmate.models.mapping.toExistingUserAccount
 import com.soulmate.models.mapping.toUserAccountDto
 import com.soulmate.repositories.UserRepository
 import com.soulmate.validation.exceptions.UserDoesNotExistException
-import dtos.ProfileEstimationDto
 import dtos.UserAccountDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -47,14 +45,14 @@ class UserService {
     }
 
 
-    fun getUsersForEstimation(currentUserId: Long): Iterable<ProfileEstimationDto> {
+    fun getUsersForEstimation(currentUserId: Long): Iterable<UserAccountDto> {
         val userAccountEntity = userRepository.findById(currentUserId).orElseThrow { UserDoesNotExistException(currentUserId) }
         val alreadyEstimatedUserIds: List<Long> = userAccountEntity.estimationCollection
                 .mapNotNull { it.destinationUserAccount }
                 .map { it.id }
                 .plus(currentUserId) //Add the current user to exclude him from the results
         val notEstimatedUsers = userRepository.findUserAccountsNotIn(alreadyEstimatedUserIds)
-        return notEstimatedUsers.map { it.toAccountEstimationDto(userAccountEntity) }
+        return notEstimatedUsers.map { it.toUserAccountDto() }
     }
 
     fun addUserEstimation(currentUserId: Long, likedUserId: Long, estimation: Estimation): Long {

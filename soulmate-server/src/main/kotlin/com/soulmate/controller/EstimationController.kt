@@ -3,7 +3,7 @@ package com.soulmate.controller
 import com.soulmate.models.Estimation
 import com.soulmate.security.authorizationServer.MemberDetails
 import com.soulmate.services.UserService
-import dtos.ProfileEstimationDto
+import dtos.UserAccountDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -18,7 +18,7 @@ class EstimationController {
     private lateinit var userService: UserService
 
     @GetMapping
-    fun getAccountsForEstimation(authentication: Authentication): Iterable<ProfileEstimationDto> {
+    fun getAccountsForEstimation(authentication: Authentication): Iterable<UserAccountDto> {
         val currentUser = authentication.principal as MemberDetails
         return userService.getUsersForEstimation(currentUser.member.id)
     }
