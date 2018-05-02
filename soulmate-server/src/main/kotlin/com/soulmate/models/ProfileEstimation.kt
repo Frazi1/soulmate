@@ -10,11 +10,11 @@ class ProfileEstimation() : Serializable {
     @Id
     var id: Long = 0
 
-    @ManyToOne(cascade = [CascadeType.ALL])
+    @ManyToOne(/*cascade = [CascadeType.ALL]*/)
     @JoinColumn(name = "source_user_id")
     var sourceUserAccount: UserAccount? = null
 
-    @ManyToOne(cascade = [CascadeType.ALL])
+    @ManyToOne(/*cascade = [CascadeType.ALL]*/)
     @JoinColumn(name = "destination_user_id")
     var destinationUserAccount: UserAccount? = null
 

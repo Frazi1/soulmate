@@ -32,7 +32,7 @@ class UserAccount() {
     @OneToMany(mappedBy = "userAccount", fetch = FetchType.LAZY)
     var profileImages: MutableCollection<ProfileImage> = mutableListOf()
 
-    @OneToMany(mappedBy = "sourceUserAccount", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
+    @OneToMany(mappedBy = "sourceUserAccount", fetch = FetchType.LAZY, cascade = [CascadeType.ALL], orphanRemoval = true)
     var estimationCollection: MutableCollection<ProfileEstimation> = mutableListOf()
 
     @OneToMany(mappedBy = "destinationUserAccount")
