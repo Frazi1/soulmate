@@ -1,12 +1,12 @@
 package com.soulmate.models
 
-import dtos.interfaces.IImage
+import com.soulmate.shared.dtos.interfaces.IImage
 import javax.persistence.*
 
 @Suppress("unused")
 @Entity
 @Table(name = "images")
-class ProfileImage: IEntity, IImage {
+class ProfileImage: IEntityWithId, IImage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

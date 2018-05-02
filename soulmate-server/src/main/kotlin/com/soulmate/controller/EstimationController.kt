@@ -2,7 +2,8 @@ package com.soulmate.controller
 
 import com.soulmate.security.authorizationServer.MemberDetails
 import com.soulmate.services.UserService
-import dtos.ProfileEstimationDto
+import com.soulmate.shared.Estimation
+import com.soulmate.shared.dtos.UserAccountDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -17,29 +18,33 @@ class EstimationController {
     private lateinit var userService: UserService
 
     @GetMapping
-    fun getAccountsForEstimation(authentication: Authentication): Iterable<ProfileEstimationDto> {
+    fun getAccountsForEstimation(authentication: Authentication): Iterable<UserAccountDto> {
         val currentUser = authentication.principal as MemberDetails
         return userService.getUsersForEstimation(currentUser.member.id)
     }
 
     @PostMapping("{id}")
-    fun addLikeEstimationForUserAccount(@PathVariable("id") id: Long, authentication: Authentication): ResponseEntity<HttpStatus> {
+    fun addUserEstimation(
+            @PathVariable("id") id: Long,
+            @RequestParam("estimation") estimation: Estimation,
+            authentication: Authentication
+    ): ResponseEntity<Long> {
         val currentUser = authentication.principal as MemberDetails
-        userService.addLikeEstimationForUserAccount(currentUser.member.id, id)
-        return ResponseEntity(HttpStatus.CREATED)
+        val createdEstimationId: Long = userService.addUserEstimation(currentUser.member.id, id, estimation)
+        return ResponseEntity.ok().body(createdEstimationId)
     }
 
     @DeleteMapping("{id}")
-    fun undoLikeEstimationForUserAccount(@PathVariable("id") id: Long, authentication: Authentication): ResponseEntity<HttpStatus> {
+    fun removeUserEstimation(@PathVariable("id") id: Long, authentication: Authentication): ResponseEntity<HttpStatus> {
         val currentUser = authentication.principal as MemberDetails
-        userService.undoLikeEstimationForUserAccount(currentUser.member.id, listOf(id))
+        userService.removeUserEstimations(currentUser.member.id, listOf(id))
         return ResponseEntity(HttpStatus.OK)
     }
 
     @DeleteMapping("/all")
     fun undoAllLikeEstimations(authentication: Authentication): ResponseEntity<HttpStatus> {
         val currentMemberDetails = authentication.principal as MemberDetails
-        userService.undoAllLikeEstimationsForUserAccount(currentMemberDetails.member.id)
+        userService.removeAllUserEstimations(currentMemberDetails.member.id)
         return ResponseEntity(HttpStatus.OK)
     }
 }

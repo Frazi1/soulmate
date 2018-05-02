@@ -3,7 +3,10 @@ package com.soulmate.models.mapping
 import com.soulmate.models.Member
 import com.soulmate.models.ProfileImage
 import com.soulmate.models.UserAccount
-import dtos.*
+import com.soulmate.shared.dtos.ProfileImageDto
+import com.soulmate.shared.dtos.UploadImageDto
+import com.soulmate.shared.dtos.UserAccountDto
+import com.soulmate.shared.dtos.UserRegistrationDto
 
 fun UserAccount.toUserAccountDto(): UserAccountDto {
     return UserAccountDto(
@@ -15,17 +18,6 @@ fun UserAccount.toUserAccountDto(): UserAccountDto {
             personalStory)
 }
 
-fun UserAccount.toAccountEstimationDto(userAccountToCheck: UserAccount): ProfileEstimationDto {
-    return ProfileEstimationDto(
-            id,
-            firstName,
-            lastName,
-            profileImages.map { it.toProfileImageDto() },
-            gender,
-            personalStory,
-            likedCollection.any { it.id == userAccountToCheck.id }
-    )
-}
 
 fun UserAccountDto.toExistingUserAccount(): UserAccount {
     return this.toExistingUserAccount(UserAccount())

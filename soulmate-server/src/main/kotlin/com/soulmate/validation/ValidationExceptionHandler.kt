@@ -1,5 +1,8 @@
 package com.soulmate.validation
 
+import com.soulmate.shared.validation.ValidationFieldError
+import com.soulmate.shared.validation.ValidationGlobalError
+import com.soulmate.shared.validation.ValidationResponse
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -8,9 +11,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.context.request.WebRequest
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler
-import validation.ValidationFieldError
-import validation.ValidationGlobalError
-import validation.ValidationResponse
 
 @ControllerAdvice
 class ValidationExceptionHandler : ResponseEntityExceptionHandler() {

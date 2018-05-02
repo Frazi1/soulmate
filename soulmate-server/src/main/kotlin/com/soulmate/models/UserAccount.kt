@@ -1,12 +1,12 @@
 package com.soulmate.models
 
-import dtos.GenderType
+import com.soulmate.shared.GenderType
 import javax.persistence.*
 
 
 @Entity
 @Table(name = "user_account")
-class UserAccount {
+class UserAccount() {
 
     @Id
     @Column(name = "id")
@@ -32,15 +32,11 @@ class UserAccount {
     @OneToMany(mappedBy = "userAccount", fetch = FetchType.LAZY)
     var profileImages: MutableCollection<ProfileImage> = mutableListOf()
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_likes",
-            joinColumns = [(JoinColumn(name = "like_source", referencedColumnName = "id"))],
-            inverseJoinColumns = [(JoinColumn(name = "like_destinantion", referencedColumnName = "id"))])
-    var likedCollection: MutableCollection<UserAccount> = mutableListOf()
+    @OneToMany(mappedBy = "sourceUserAccount", fetch = FetchType.LAZY, cascade = [CascadeType.ALL], orphanRemoval = true)
+    var estimationCollection: MutableCollection<ProfileEstimation> = mutableListOf()
 
-    @ManyToMany(mappedBy = "likedCollection", fetch = FetchType.LAZY)
-    var likedByCollection: MutableCollection<UserAccount> = mutableListOf()
-
+    @OneToMany(mappedBy = "destinationUserAccount", fetch = FetchType.LAZY, cascade = [CascadeType.ALL], orphanRemoval = true)
+    var estimatedByCollection: MutableCollection<ProfileEstimation> = mutableListOf()
 
     constructor(id: Long, member: Member?, firstName: String?, lastName: String?, gender: GenderType, personalStory: String)
             : this(firstName, lastName) {
@@ -50,10 +46,8 @@ class UserAccount {
         this.personalStory = personalStory
     }
 
-    constructor(firstName: String?, lastName: String? = null) {
+    constructor(firstName: String?, lastName: String? = null) : this() {
         this.firstName = firstName
         this.lastName = lastName
     }
-
-    constructor()
 }

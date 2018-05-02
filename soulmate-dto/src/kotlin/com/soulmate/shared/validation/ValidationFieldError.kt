@@ -1,4 +1,4 @@
-package validation
+package com.soulmate.shared.validation
 
 @Suppress("unused", "MemberVisibilityCanBePrivate")
 class ValidationFieldError {

@@ -1,4 +1,6 @@
-package dtos
+package com.soulmate.shared.dtos
+
+import com.soulmate.shared.GenderType
 
 open class UserAccountDto(var id: Long = 0,
                           var firstName: String? = "",
