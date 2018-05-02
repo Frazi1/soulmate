@@ -70,10 +70,10 @@ class UserService {
     fun addLikeEstimationForUserAccount(currentUserId: Long, likedUserId: Long) {
         val currentUser = userRepository.findById(currentUserId).orElseThrow { UserDoesNotExistException(currentUserId) }
         val likedUser = userRepository.findById(likedUserId).orElseThrow { UserDoesNotExistException(likedUserId) }
-//        val estimation = ProfileEstimation(currentUser, likedUser, Estimation.LIKE)
-//        currentUser.estimationCollection.add(estimation)
+        val estimation = ProfileEstimation(currentUser, likedUser, Estimation.LIKE)
+        currentUser.estimationCollection.add(estimation)
 
-//        userRepository.save(currentUser)
+        userRepository.save(currentUser)
     }
 
     fun undoLikeEstimationForUserAccount(currentUserId: Long, unlikedUserIds: Iterable<Long>) {
