@@ -6,7 +6,7 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "user_account")
-class UserAccount {
+class UserAccount() {
 
     @Id
     @Column(name = "id")
@@ -47,10 +47,8 @@ class UserAccount {
         this.personalStory = personalStory
     }
 
-    constructor(firstName: String?, lastName: String? = null) {
+    constructor(firstName: String?, lastName: String? = null) : this() {
         this.firstName = firstName
         this.lastName = lastName
     }
-
-    constructor()
 }
