@@ -1,5 +1,6 @@
 package com.soulmate.models
 
+import com.soulmate.shared.Estimation
 import java.io.Serializable
 import javax.persistence.*
 

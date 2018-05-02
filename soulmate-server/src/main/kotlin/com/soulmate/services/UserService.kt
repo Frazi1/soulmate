@@ -1,11 +1,11 @@
 package com.soulmate.services
 
-import com.soulmate.models.Estimation
 import com.soulmate.models.ProfileEstimation
 import com.soulmate.models.UserAccount
 import com.soulmate.models.mapping.toExistingUserAccount
 import com.soulmate.models.mapping.toUserAccountDto
 import com.soulmate.repositories.UserRepository
+import com.soulmate.shared.Estimation
 import com.soulmate.validation.exceptions.UserDoesNotExistException
 import dtos.UserAccountDto
 import org.springframework.beans.factory.annotation.Autowired

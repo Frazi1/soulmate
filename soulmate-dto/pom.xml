@@ -15,7 +15,7 @@
     </parent>
 
     <build>
-        <sourceDirectory>src/com/soulmate</sourceDirectory>
+        <sourceDirectory>src/kotlin/com/soulmate</sourceDirectory>
     </build>
 
 </project>

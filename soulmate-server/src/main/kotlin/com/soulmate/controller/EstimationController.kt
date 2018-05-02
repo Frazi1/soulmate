@@ -1,8 +1,8 @@
 package com.soulmate.controller
 
-import com.soulmate.models.Estimation
 import com.soulmate.security.authorizationServer.MemberDetails
 import com.soulmate.services.UserService
+import com.soulmate.shared.Estimation
 import dtos.UserAccountDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
