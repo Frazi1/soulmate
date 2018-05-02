@@ -8,9 +8,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.context.request.WebRequest
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler
-import validation.ValidationFieldError
-import validation.ValidationGlobalError
-import validation.ValidationResponse
 
 @ControllerAdvice
 class ValidationExceptionHandler : ResponseEntityExceptionHandler() {

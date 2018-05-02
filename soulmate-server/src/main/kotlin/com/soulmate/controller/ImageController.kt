@@ -2,7 +2,7 @@ package com.soulmate.controller
 
 import com.soulmate.security.authorizationServer.MemberDetails
 import com.soulmate.services.ImageService
-import dtos.UploadImageDto
+import com.soulmate.dtos.UploadImageDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
 import org.springframework.security.core.Authentication

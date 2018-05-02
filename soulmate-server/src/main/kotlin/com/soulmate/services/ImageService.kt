@@ -1,12 +1,12 @@
 package com.soulmate.services
 
+import com.soulmate.dtos.UploadImageDto
 import com.soulmate.models.ProfileImage
 import com.soulmate.models.UserAccount
 import com.soulmate.models.mapping.toProfileImage
 import com.soulmate.repositories.ImageRepository
 import com.soulmate.utils.extensions.resize
 import com.soulmate.validation.exceptions.BusinessException
-import dtos.UploadImageDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import javax.transaction.Transactional

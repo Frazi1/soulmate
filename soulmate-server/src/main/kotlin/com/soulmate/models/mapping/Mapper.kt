@@ -4,7 +4,7 @@ import com.soulmate.models.Member
 import com.soulmate.models.ProfileImage
 import com.soulmate.models.UserAccount
 import dtos.ProfileImageDto
-import dtos.UploadImageDto
+import com.soulmate.dtos.UploadImageDto
 import dtos.UserAccountDto
 import dtos.UserRegistrationDto
 

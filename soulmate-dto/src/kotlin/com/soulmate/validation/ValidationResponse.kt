@@ -1,4 +1,4 @@
-package validation
+package com.soulmate.validation
 
 @Suppress("unused")
 class ValidationResponse {
