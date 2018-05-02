@@ -6,7 +6,6 @@ import com.soulmate.models.UserAccount
 import com.soulmate.models.mapping.toAccountEstimationDto
 import com.soulmate.models.mapping.toExistingUserAccount
 import com.soulmate.models.mapping.toUserAccountDto
-import com.soulmate.repositories.ProfileEstimationRepository
 import com.soulmate.repositories.UserRepository
 import com.soulmate.validation.exceptions.UserDoesNotExistException
 import dtos.ProfileEstimationDto
@@ -24,9 +23,6 @@ class UserService {
 
     @Autowired
     private lateinit var imageService: ImageService
-
-    @Autowired
-    private lateinit var profileEstimationRepository: ProfileEstimationRepository
 
     fun addUser(u: UserAccount) {
         userRepository.save(u)
@@ -61,36 +57,34 @@ class UserService {
         return notEstimatedUsers.map { it.toAccountEstimationDto(userAccountEntity) }
     }
 
-    //    @Transactional
-    fun addLikeEstimationForUserAccount(currentUserId: Long, likedUserId: Long) {
+    fun addUserEstimation(currentUserId: Long, likedUserId: Long, estimation: Estimation): Long {
         val currentUser = userRepository.findById(currentUserId).orElseThrow { UserDoesNotExistException(currentUserId) }
         val likedUser = userRepository.findById(likedUserId).orElseThrow { UserDoesNotExistException(likedUserId) }
-        val estimation = ProfileEstimation(currentUser, likedUser, Estimation.LIKE)
-        currentUser.estimationCollection.add(estimation)
-
+        val profileEstimation = ProfileEstimation(currentUser, likedUser, estimation)
+        currentUser.estimationCollection.add(profileEstimation)
         userRepository.save(currentUser)
+        return profileEstimation.id
     }
 
-    fun undoLikeEstimationForUserAccount(currentUserId: Long, unlikedUserIds: Iterable<Long>) {
+    fun removeUserEstimations(currentUserId: Long, userIdsToRemove: Iterable<Long>) {
         val currentUser = userRepository.findById(currentUserId).orElseThrow { UserDoesNotExistException(currentUserId) }
-        undoLikeEstimationForUserAccountInternal(currentUser, unlikedUserIds)
+        removeUserEstimationsInternal(currentUser, userIdsToRemove)
     }
 
     @Transactional
-    fun undoAllLikeEstimationsForUserAccount(currentUserId: Long) {
+    fun removeAllUserEstimations(currentUserId: Long) {
         val currentUser = userRepository.findById(currentUserId).orElseThrow { UserDoesNotExistException(currentUserId) }
-        undoLikeEstimationForUserAccountInternal(
+        removeUserEstimationsInternal(
                 currentUser,
                 currentUser.estimationCollection
-                        .mapNotNull(ProfileEstimation::destinationUserAccount)
-                        .map(UserAccount::id)
-        )
+                        .mapNotNull { it.destinationUserAccount }
+                        .map { it.id })
     }
 
-    private fun undoLikeEstimationForUserAccountInternal(userAccount: UserAccount, unlikedUserIds: Iterable<Long>) {
-        userAccount.estimationCollection.removeIf {
-            unlikedUserIds.contains(it.destinationUserAccount!!.id)
+    private fun removeUserEstimationsInternal(currentUserAccount: UserAccount, userIdsToRemove: Iterable<Long>) {
+        currentUserAccount.estimationCollection.removeIf {
+            userIdsToRemove.contains(it.destinationUserAccount!!.id)
         }
-        userRepository.save(userAccount)
+        userRepository.save(currentUserAccount)
     }
 }

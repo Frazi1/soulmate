@@ -35,9 +35,8 @@ class UserAccount() {
     @OneToMany(mappedBy = "sourceUserAccount", fetch = FetchType.LAZY, cascade = [CascadeType.ALL], orphanRemoval = true)
     var estimationCollection: MutableCollection<ProfileEstimation> = mutableListOf()
 
-    @OneToMany(mappedBy = "destinationUserAccount")
+    @OneToMany(mappedBy = "destinationUserAccount", fetch = FetchType.LAZY, cascade = [CascadeType.ALL], orphanRemoval = true)
     var estimatedByCollection: MutableCollection<ProfileEstimation> = mutableListOf()
-
 
     constructor(id: Long, member: Member?, firstName: String?, lastName: String?, gender: GenderType, personalStory: String)
             : this(firstName, lastName) {
