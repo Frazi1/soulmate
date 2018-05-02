@@ -30,7 +30,7 @@ class EstimationController {
             authentication: Authentication
     ): ResponseEntity<Long> {
         val currentUser = authentication.principal as MemberDetails
-        val createdEstimationId: Long = userService.addUserEstimation(currentUser.member.id, id, Estimation.LIKE)
+        val createdEstimationId: Long = userService.addUserEstimation(currentUser.member.id, id, estimation)
         return ResponseEntity.ok().body(createdEstimationId)
     }
 
