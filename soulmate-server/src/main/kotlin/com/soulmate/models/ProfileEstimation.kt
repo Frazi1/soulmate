@@ -8,7 +8,9 @@ import javax.persistence.*
 @Table(name = "profile_estimations")
 class ProfileEstimation() : Serializable {
 
-    @Id
+    @Id()
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     var id: Long = 0
 
     @ManyToOne(/*cascade = [CascadeType.ALL]*/)
