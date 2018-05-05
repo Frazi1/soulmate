@@ -1,6 +1,7 @@
 package com.soulmate.models
 
 import com.soulmate.shared.GenderType
+import org.hibernate.annotations.ColumnDefault
 import javax.persistence.*
 
 
@@ -28,6 +29,9 @@ class UserAccount() {
 
     @Column(name = "personal_story")
     var personalStory: String = ""
+
+    @Column(name = "age", nullable = false)
+    var age: Int = 0
 
     @OneToMany(mappedBy = "userAccount", fetch = FetchType.LAZY)
     var profileImages: MutableCollection<ProfileImage> = mutableListOf()

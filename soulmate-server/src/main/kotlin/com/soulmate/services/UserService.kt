@@ -6,6 +6,7 @@ import com.soulmate.models.mapping.toExistingUserAccount
 import com.soulmate.models.mapping.toUserAccountDto
 import com.soulmate.repositories.UserRepository
 import com.soulmate.repositories.specs.NotAlreadyEstimatedBy
+import com.soulmate.repositories.specs.TrueSpec
 import com.soulmate.shared.Estimation
 import com.soulmate.shared.dtos.UserAccountDto
 import com.soulmate.validation.exceptions.UserDoesNotExistException
@@ -47,10 +48,11 @@ class UserService {
     }
 
 
-    fun getUsersForEstimation(currentUserId: Long): Iterable<UserAccountDto> {
+    fun getUsersForEstimation(currentUserId: Long, specification: Specification<UserAccount> = TrueSpec()): Iterable<UserAccountDto> {
         val userAccountEntity = userRepository.findById(currentUserId).orElseThrow { UserDoesNotExistException(currentUserId) }
+        val resultSpec = specification.and(NotAlreadyEstimatedBy(userAccountEntity))
         return userRepository
-                .findAll(NotAlreadyEstimatedBy(userAccountEntity))
+                .findAll(resultSpec)
                 .map { it.toUserAccountDto() }
     }
 

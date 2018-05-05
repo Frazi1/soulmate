@@ -15,7 +15,8 @@ fun UserAccount.toUserAccountDto(): UserAccountDto {
             firstName,
             profileImages.map { it.toProfileImageDto() },
             gender,
-            personalStory)
+            personalStory,
+            age)
 }
 
 
@@ -29,6 +30,7 @@ fun UserAccountDto.toExistingUserAccount(userAccount: UserAccount): UserAccount 
     userAccount.lastName = lastName
     userAccount.gender = gender
     userAccount.personalStory = personalStory
+    userAccount.age = age
     return userAccount
 }
 

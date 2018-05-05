@@ -7,5 +7,6 @@ open class UserAccountDto(var id: Long = 0,
                           var lastName: String? = "",
                           var profileImages: Collection<ProfileImageDto> = listOf(),
                           var gender: GenderType = GenderType.NotDefined,
-                          var personalStory: String = "")
+                          var personalStory: String = "",
+                          var age: Int = 0)
 
