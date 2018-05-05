@@ -1,10 +1,15 @@
 package com.soulmate.controller
 
+import com.soulmate.models.UserAccount
 import com.soulmate.security.authorizationServer.MemberDetails
 import com.soulmate.services.UserService
 import com.soulmate.shared.Estimation
 import com.soulmate.shared.dtos.UserAccountDto
+import net.kaczmarzyk.spring.data.jpa.domain.Equal
+import net.kaczmarzyk.spring.data.jpa.web.annotation.And
+import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.jpa.domain.Specification
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.Authentication
@@ -46,5 +51,12 @@ class EstimationController {
         val currentMemberDetails = authentication.principal as MemberDetails
         userService.removeAllUserEstimations(currentMemberDetails.member.id)
         return ResponseEntity(HttpStatus.OK)
+    }
+
+    @GetMapping(value = ["/users"] )
+    fun getUsersForEstimationWithFilter(@And(*[
+        Spec(path = "firstName", spec = Equal::class),
+        Spec(path = "gender", spec = Equal::class)]) spec: Specification<UserAccount>): Iterable<UserAccountDto> {
+        return userService.findBySpec(spec)
     }
 }
