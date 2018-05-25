@@ -8,6 +8,7 @@ import com.soulmate.shared.Estimation
 import com.soulmate.shared.dtos.UserAccountDto
 import net.kaczmarzyk.spring.data.jpa.domain.Equal
 import net.kaczmarzyk.spring.data.jpa.domain.GreaterThanOrEqual
+import net.kaczmarzyk.spring.data.jpa.domain.In
 import net.kaczmarzyk.spring.data.jpa.domain.LessThanOrEqual
 import net.kaczmarzyk.spring.data.jpa.web.annotation.And
 import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec
@@ -55,7 +56,7 @@ class EstimationController {
     @GetMapping()
     fun getUsersForEstimationWithFilter(@And(
             Spec(path = "firstName", spec = Equal::class),
-            Spec(path = "gender", spec = Equal::class),
+            Spec(path = "gender", spec = In::class),
             Spec(path = "age", spec = GreaterThanOrEqual::class, params = ["ageFrom"]),
             Spec(path = "age", spec = LessThanOrEqual::class, params = ["ageTo"])
     ) spec: Specification<UserAccount>?, authentication: Authentication): Iterable<UserAccountDto> {
