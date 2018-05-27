@@ -1,5 +1,7 @@
 package com.soulmate.models
 
+import java.time.Clock
+import java.time.LocalDateTime
 import javax.persistence.*
 
 @Entity
@@ -21,4 +23,7 @@ class UserMessage: IEntityWithId {
 
     @Column(name = "content")
     var content: String = ""
+
+    @Column(name = "sentTime")
+    var sentTime: LocalDateTime = LocalDateTime.now(Clock.systemUTC())
 }

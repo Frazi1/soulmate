@@ -1,29 +1,31 @@
 package com.soulmate.controller
 
-import com.soulmate.security.authorizationServer.MemberDetails
-import com.soulmate.services.helpers.MessageService
+import com.soulmate.security.interfaces.IUserContextHolder
+import com.soulmate.services.UserService
+import com.soulmate.services.MessageService
 import com.soulmate.shared.dtos.SendMessageDto
+import com.soulmate.shared.dtos.UserAccountDto
 import com.soulmate.shared.dtos.UserMessageDto
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.ResponseEntity
-import org.springframework.security.core.Authentication
-import org.springframework.security.core.context.SecurityContextHolder
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("api/message")
-class MessageController {
+class MessageController(userContextHolder: IUserContextHolder,
+                        private val messageService: MessageService,
+                        private val userService: UserService) : BaseController(userContextHolder) {
 
-    @Autowired
-    private lateinit var messageService: MessageService
+    @GetMapping
+    fun getUserChats(): Iterable<UserAccountDto> {
+        return userService.getUserPairs(currentUserId)
+    }
+
+    @GetMapping("{id}")
+    fun getMessagesWithUser(@PathVariable("id") userId: Long): Iterable<UserMessageDto> {
+        return messageService.getMessagesForUsers(currentUserId, userId)
+    }
 
     @PostMapping
-    fun sendMessage(@RequestBody messageDto: SendMessageDto): ResponseEntity<Long> {
-        val currentUser = SecurityContextHolder.getContext().authentication.principal as MemberDetails
-        val sentMessage = messageService.sendMessage(messageDto, currentUser.member.id)
-        return ResponseEntity.ok(sentMessage.id)
+    fun sendMessage(@RequestBody messageDto: SendMessageDto): UserMessageDto {
+        return messageService.sendMessage(messageDto, currentUserId)
     }
 }

@@ -5,7 +5,8 @@ import com.soulmate.models.ProfileImage
 import com.soulmate.models.UserAccount
 import com.soulmate.models.UserMessage
 import com.soulmate.shared.dtos.*
-import org.apache.catalina.User
+import java.time.ZoneOffset
+import java.util.*
 
 fun UserAccount.toUserAccountDto(): UserAccountDto {
     return UserAccountDto(
@@ -55,7 +56,8 @@ fun ProfileImage.toProfileImageDto(): ProfileImageDto {
     return ProfileImageDto(id, description, isMainImage)
 }
 
-fun UserMessage.toUserMessageDto(): UserMessageDto = UserMessageDto(id, sourceUserAccount!!.id, destinationUserAccount!!.id, content)
+fun UserMessage.toUserMessageDto(): UserMessageDto
+        = UserMessageDto(id, sourceUserAccount!!.id, destinationUserAccount!!.id, content, Date.from(sentTime.toInstant(ZoneOffset.UTC)))
 
 private fun createUserMessage(sourceUserAccount: UserAccount, destinationUserAccount: UserAccount, content: String): UserMessage {
     val userMessage = UserMessage()
@@ -69,6 +71,6 @@ fun UserMessageDto.toUserMessage(sourceUserAccount: UserAccount, destinationUser
     return createUserMessage(sourceUserAccount, destinationUserAccount, content)
 }
 
-fun SendMessageDto.toUserMessage(sourceUserAccount: UserAccount, destinationUserAccount: UserAccount):UserMessage {
+fun SendMessageDto.toUserMessage(sourceUserAccount: UserAccount, destinationUserAccount: UserAccount): UserMessage {
     return createUserMessage(sourceUserAccount, destinationUserAccount, content)
 }
