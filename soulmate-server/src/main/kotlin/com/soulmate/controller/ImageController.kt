@@ -1,28 +1,23 @@
 package com.soulmate.controller
 
-import com.soulmate.security.authorizationServer.MemberDetails
+import com.soulmate.security.interfaces.IUserContextHolder
 import com.soulmate.services.ImageService
 import com.soulmate.shared.dtos.UploadImageDto
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
-import org.springframework.security.core.Authentication
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping(value = ["api/image"])
-class ImageController {
-
-    @Autowired
-    lateinit var imageService: ImageService
+class ImageController(userContextHolder: IUserContextHolder,
+                      private val imageService: ImageService) : BaseController(userContextHolder) {
 
     @GetMapping("{id}", produces = [MediaType.IMAGE_JPEG_VALUE])
-    fun getImage(@PathVariable("id") id: Long, compressedWidth: Int? = null) : ByteArray? {
+    fun getImage(@PathVariable("id") id: Long, compressedWidth: Int? = null): ByteArray? {
         return imageService.getImageBytes(id, compressedWidth)
     }
 
     @PostMapping
-    fun uploadProfileImage(authentication: Authentication, @RequestBody uploadImageDto: UploadImageDto) {
-        val memberDetails = authentication.principal as MemberDetails
-        imageService.uploadProfileImage(memberDetails.member.userAccount, uploadImageDto)
+    fun uploadProfileImage(@RequestBody uploadImageDto: UploadImageDto) {
+        imageService.uploadProfileImage(currentUserId, uploadImageDto)
     }
 }
