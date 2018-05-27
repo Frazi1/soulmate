@@ -91,4 +91,17 @@ class UserService {
         val res = userRepository.findAll(spec)
         return res.map { it.toUserAccountDto() }
     }
+
+    fun getUserPairs(userId: Long): Iterable<UserAccountDto> {
+        val user = userRepository.findById(userId).orElseThrow {UserDoesNotExistException(userId)}
+        val userLikes = user.estimationCollection
+                .filter { it.estimation == Estimation.LIKE }
+                .mapNotNull { it.destinationUserAccount }
+        val userLikedBy = user.estimatedByCollection
+                .filter { it.estimation == Estimation.LIKE }
+                .mapNotNull { it.sourceUserAccount }
+
+        val pairs = userLikes.intersect(userLikedBy)
+        return pairs.map { it.toUserAccountDto() }
+    }
 }

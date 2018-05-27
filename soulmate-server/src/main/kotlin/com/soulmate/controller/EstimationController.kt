@@ -63,4 +63,11 @@ class EstimationController {
         val currentUser = authentication.principal as MemberDetails
         return userService.getUsersForEstimation(currentUser.member.id, spec ?: TrueSpec())
     }
+
+    @GetMapping("test")
+    fun test(authentication: Authentication) : Iterable<UserAccountDto> {
+        val currentUser = authentication.principal as MemberDetails
+        val userPairs = userService.getUserPairs(currentUser.member.id)
+        return userPairs
+    }
 }
