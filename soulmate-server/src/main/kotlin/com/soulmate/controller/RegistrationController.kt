@@ -1,5 +1,6 @@
 package com.soulmate.controller
 
+import com.soulmate.security.interfaces.IUserContextHolder
 import com.soulmate.services.MemberService
 import com.soulmate.validation.registarion.RegistrationMemberValidator
 import com.soulmate.shared.dtos.UserRegistrationDto
@@ -12,10 +13,8 @@ import javax.validation.Valid
 
 @RestController
 @RequestMapping(value = ["api/registration"])
-class RegistrationController {
-
-    @Autowired
-    private lateinit var memberService: MemberService
+class RegistrationController(userContextHolder: IUserContextHolder,
+                             private val memberService: MemberService) : BaseController(userContextHolder) {
 
     @Autowired
     lateinit var registrationMemberValidator: RegistrationMemberValidator
