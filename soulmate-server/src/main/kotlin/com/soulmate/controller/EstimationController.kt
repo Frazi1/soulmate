@@ -43,7 +43,6 @@ class EstimationController(userContextHolder: IUserContextHolder,
         userService.removeAllUserEstimations(currentUserId)
         return ResponseEntity(HttpStatus.OK)
     }
-
     @GetMapping()
     fun getUsersForEstimationWithFilter(@And(
             Spec(path = "firstName", spec = Equal::class),
