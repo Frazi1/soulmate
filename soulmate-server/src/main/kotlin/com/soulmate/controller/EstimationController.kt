@@ -53,10 +53,4 @@ class EstimationController(userContextHolder: IUserContextHolder,
     ) spec: Specification<UserAccount>?): Iterable<UserAccountDto> {
         return userService.getUsersForEstimation(currentUserId, spec ?: TrueSpec())
     }
-
-    @GetMapping("test")
-    fun test() : Iterable<UserAccountDto> {
-        val userPairs = userService.getUserPairs(currentUserId)
-        return userPairs
-    }
 }
