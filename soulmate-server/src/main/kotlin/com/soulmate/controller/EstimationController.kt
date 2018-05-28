@@ -1,12 +1,20 @@
 package com.soulmate.controller
 
+import com.soulmate.models.UserAccount
+import com.soulmate.repositories.specs.TrueSpec
 import com.soulmate.security.interfaces.IUserContextHolder
 import com.soulmate.services.UserService
 import com.soulmate.shared.Estimation
 import com.soulmate.shared.dtos.UserAccountDto
+import net.kaczmarzyk.spring.data.jpa.domain.Equal
+import net.kaczmarzyk.spring.data.jpa.domain.GreaterThanOrEqual
+import net.kaczmarzyk.spring.data.jpa.domain.In
+import net.kaczmarzyk.spring.data.jpa.domain.LessThanOrEqual
+import net.kaczmarzyk.spring.data.jpa.web.annotation.And
+import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec
+import org.springframework.data.jpa.domain.Specification
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.security.core.Authentication
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -14,10 +22,6 @@ import org.springframework.web.bind.annotation.*
 class EstimationController(userContextHolder: IUserContextHolder,
                            val userService: UserService) : BaseController(userContextHolder) {
 
-    @GetMapping
-    fun getAccountsForEstimation(authentication: Authentication): Iterable<UserAccountDto> {
-        return userService.getUsersForEstimation(currentUserId)
-    }
 
     @PostMapping("{id}")
     fun addUserEstimation(
@@ -38,5 +42,14 @@ class EstimationController(userContextHolder: IUserContextHolder,
     fun undoAllLikeEstimations(): ResponseEntity<HttpStatus> {
         userService.removeAllUserEstimations(currentUserId)
         return ResponseEntity(HttpStatus.OK)
+    }
+    @GetMapping()
+    fun getUsersForEstimationWithFilter(@And(
+            Spec(path = "firstName", spec = Equal::class),
+            Spec(path = "gender", spec = In::class),
+            Spec(path = "age", spec = GreaterThanOrEqual::class, params = ["ageFrom"]),
+            Spec(path = "age", spec = LessThanOrEqual::class, params = ["ageTo"])
+    ) spec: Specification<UserAccount>?): Iterable<UserAccountDto> {
+        return userService.getUsersForEstimation(currentUserId, spec ?: TrueSpec())
     }
 }

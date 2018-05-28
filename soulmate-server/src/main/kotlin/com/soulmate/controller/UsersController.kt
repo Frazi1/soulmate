@@ -12,8 +12,8 @@ class UsersController(userContextHolder: IUserContextHolder,
                       private val userService: UserService) : BaseController(userContextHolder) {
 
     @GetMapping
-    fun getUserAccounts(): Iterable<UserAccountDto> {
-        return userService.getUsers()
+    fun getUserAccounts(@RequestParam("ids") userIds: ArrayList<Long>): Iterable<UserAccountDto> {
+        return userService.getUsersByIds(userIds)
     }
 
     @GetMapping(value = ["/profile"])

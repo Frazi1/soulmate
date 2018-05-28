@@ -42,6 +42,12 @@ class UserAccount() {
     @OneToMany(mappedBy = "destinationUserAccount", fetch = FetchType.LAZY, cascade = [CascadeType.ALL], orphanRemoval = true)
     var estimatedByCollection: MutableCollection<ProfileEstimation> = mutableListOf()
 
+    @OneToMany(mappedBy = "sourceUserAccount", fetch = FetchType.LAZY, cascade = [CascadeType.ALL], orphanRemoval = true)
+    var sentMessages: MutableCollection<UserMessage> = mutableListOf()
+
+    @OneToMany(mappedBy = "destinationUserAccount", fetch = FetchType.LAZY, cascade = [CascadeType.ALL], orphanRemoval = true)
+    var receivedMessages: MutableCollection<UserMessage> = mutableListOf()
+
     constructor(id: Long, member: Member?, firstName: String?, lastName: String?, gender: GenderType, personalStory: String)
             : this(firstName, lastName) {
         this.id = id
@@ -53,5 +59,20 @@ class UserAccount() {
     constructor(firstName: String?, lastName: String? = null) : this() {
         this.firstName = firstName
         this.lastName = lastName
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as UserAccount
+
+        if (id != other.id) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return id.hashCode()
     }
 }

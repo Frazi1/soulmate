@@ -33,6 +33,12 @@ class UserService {
         return userRepository.findAll().map { it.toUserAccountDto() }
     }
 
+    fun getUsersByIds(userIds: List<Long>): List<UserAccountDto> {
+        return userRepository.findAll { r, cq, cb ->
+            return@findAll r.get<Long>(UserAccount::id.name).`in`(userIds)
+        }.map { it.toUserAccountDto() }
+    }
+
     fun getUser(id: Long): UserAccountDto {
         val userAccount = userRepository.findById(id).orElseThrow { UserDoesNotExistException(id) }
         val userAccountDto = userAccount.toUserAccountDto()
@@ -90,5 +96,18 @@ class UserService {
     fun findBySpec(spec: Specification<UserAccount>): Iterable<UserAccountDto> {
         val res = userRepository.findAll(spec)
         return res.map { it.toUserAccountDto() }
+    }
+
+    fun getUserPairs(userId: Long): Iterable<UserAccountDto> {
+        val user = userRepository.findById(userId).orElseThrow { UserDoesNotExistException(userId) }
+        val userLikes = user.estimationCollection
+                .filter { it.estimation == Estimation.LIKE }
+                .mapNotNull { it.destinationUserAccount }
+        val userLikedBy = user.estimatedByCollection
+                .filter { it.estimation == Estimation.LIKE }
+                .mapNotNull { it.sourceUserAccount }
+
+        val pairs = userLikes.intersect(userLikedBy)
+        return pairs.map { it.toUserAccountDto() }
     }
 }
