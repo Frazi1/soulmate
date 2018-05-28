@@ -1,0 +1,1 @@
+java -Dserver.port=58000 -jar soulmate-server/target/soulmate-server-0.0.1-SNAPSHOT.jar
