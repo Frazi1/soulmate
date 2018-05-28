@@ -1,12 +1,13 @@
 package com.soulmate.services
 
-import com.soulmate.shared.dtos.UploadImageDto
 import com.soulmate.models.ProfileImage
-import com.soulmate.models.UserAccount
 import com.soulmate.models.mapping.toProfileImage
 import com.soulmate.repositories.ImageRepository
+import com.soulmate.repositories.UserRepository
+import com.soulmate.shared.dtos.UploadImageDto
 import com.soulmate.utils.extensions.resize
 import com.soulmate.validation.exceptions.BusinessException
+import com.soulmate.validation.exceptions.UserDoesNotExistException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import javax.transaction.Transactional
@@ -21,6 +22,9 @@ class ImageService {
 
     @Autowired
     private lateinit var imageRepository: ImageRepository
+
+    @Autowired
+    private lateinit var userRepository: UserRepository
 
     fun updateMainProfileImage(userId: Long, newImageId: Long) {
         val userImages: List<ProfileImage> = imageRepository.findAllByUserAccountId(userId)
@@ -44,9 +48,10 @@ class ImageService {
         }
     }
 
-    fun uploadProfileImage(currentUserAccount: UserAccount?, uploadImageDto: UploadImageDto) {
+    fun uploadProfileImage(userId: Long, uploadImageDto: UploadImageDto) {
         val profileImage = uploadImageDto.toProfileImage()
-        profileImage.userAccount = currentUserAccount
+        val userAccount = userRepository.findById(userId).orElseThrow {UserDoesNotExistException(userId)}
+        profileImage.userAccount = userAccount
         profileImage.resize(IMAGE_MAX_SIZE)
         save(profileImage)
     }
