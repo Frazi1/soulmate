@@ -5,10 +5,13 @@ import com.soulmate.models.UserAccount
 import com.soulmate.models.mapping.toExistingUserAccount
 import com.soulmate.models.mapping.toUserAccountDto
 import com.soulmate.repositories.UserRepository
+import com.soulmate.repositories.specs.NotAlreadyEstimatedBy
+import com.soulmate.repositories.specs.TrueSpec
 import com.soulmate.shared.Estimation
-import com.soulmate.validation.exceptions.UserDoesNotExistException
 import com.soulmate.shared.dtos.UserAccountDto
+import com.soulmate.validation.exceptions.UserDoesNotExistException
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.jpa.domain.Specification
 import org.springframework.stereotype.Service
 import javax.transaction.Transactional
 
@@ -45,14 +48,12 @@ class UserService {
     }
 
 
-    fun getUsersForEstimation(currentUserId: Long): Iterable<UserAccountDto> {
+    fun getUsersForEstimation(currentUserId: Long, specification: Specification<UserAccount> = TrueSpec()): Iterable<UserAccountDto> {
         val userAccountEntity = userRepository.findById(currentUserId).orElseThrow { UserDoesNotExistException(currentUserId) }
-        val alreadyEstimatedUserIds: List<Long> = userAccountEntity.estimationCollection
-                .mapNotNull { it.destinationUserAccount }
-                .map { it.id }
-                .plus(currentUserId) //Add the current user to exclude him from the results
-        val notEstimatedUsers = userRepository.findUserAccountsNotIn(alreadyEstimatedUserIds)
-        return notEstimatedUsers.map { it.toUserAccountDto() }
+        val resultSpec = specification.and(NotAlreadyEstimatedBy(userAccountEntity))
+        return userRepository
+                .findAll(resultSpec)
+                .map { it.toUserAccountDto() }
     }
 
     fun addUserEstimation(currentUserId: Long, likedUserId: Long, estimation: Estimation): Long {
@@ -84,5 +85,10 @@ class UserService {
             userIdsToRemove.contains(it.destinationUserAccount!!.id)
         }
         userRepository.save(currentUserAccount)
+    }
+
+    fun findBySpec(spec: Specification<UserAccount>): Iterable<UserAccountDto> {
+        val res = userRepository.findAll(spec)
+        return res.map { it.toUserAccountDto() }
     }
 }
