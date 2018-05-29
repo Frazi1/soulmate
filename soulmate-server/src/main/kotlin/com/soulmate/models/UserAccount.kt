@@ -1,7 +1,6 @@
 package com.soulmate.models
 
 import com.soulmate.shared.GenderType
-import org.hibernate.annotations.ColumnDefault
 import javax.persistence.*
 
 
@@ -47,6 +46,12 @@ class UserAccount() {
 
     @OneToMany(mappedBy = "destinationUserAccount", fetch = FetchType.LAZY, cascade = [CascadeType.ALL], orphanRemoval = true)
     var receivedMessages: MutableCollection<UserMessage> = mutableListOf()
+
+    @ManyToMany(cascade = [CascadeType.PERSIST], fetch = FetchType.EAGER)
+    @JoinTable(name = "user_interests",
+            joinColumns = [(JoinColumn(name = "user_id"))],
+            inverseJoinColumns = [(JoinColumn(name = "interest_id"))])
+    var interests: MutableCollection<Interest> = mutableListOf()
 
     constructor(id: Long, member: Member?, firstName: String?, lastName: String?, gender: GenderType, personalStory: String)
             : this(firstName, lastName) {
