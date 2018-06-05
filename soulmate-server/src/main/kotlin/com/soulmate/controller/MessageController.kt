@@ -49,7 +49,7 @@ class MessageController(userContextHolder: IUserContextHolder,
             if (it.isSetOrExpired) {
                 queue.remove(it)
             } else {
-                val res = messageService.getNewDialogMessages(it.firstUserAccount, it.secondUserAccount, it.dateAfter)
+                val res = messageService.getNewDialogMessages(it.firstUserAccount, it.secondUserAccount, it.dateAfter).sortedBy { it.sentAt }
                 if (res.any()) {
                     it.setResult(res)
                     queue.remove(it)
