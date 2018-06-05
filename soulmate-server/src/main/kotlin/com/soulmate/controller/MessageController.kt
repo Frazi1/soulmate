@@ -23,14 +23,19 @@ class MessageController(userContextHolder: IUserContextHolder,
 //        return userService.getUserPairs(currentUserId)
 //    }
 
-    @GetMapping("{id}")
-    fun getMessagesWithUser(@PathVariable("id") userId: Long,
+    @GetMapping("poll/{id}")
+    fun pollMessagesWithUser(@PathVariable("id") userId: Long,
                             @RequestParam("dateAfter") dateAfter: Optional<Long>): DeferredMessage {
 
         val deferredMessage = DeferredMessage(currentUserId, userId, Date(dateAfter.orElse(0)))
         queue.add(deferredMessage)
         return deferredMessage
 //        return messageService.getNewDialogMessages(currentUserId, userId, dateAfter.orElse(Date(0)))
+    }
+
+    @GetMapping("{id}")
+    fun getMessagesWithUser(@PathVariable("id") userId: Long): Iterable<UserMessageDto> {
+        return messageService.getNewDialogMessages(currentUserId, userId, Date(0))
     }
 
     @PostMapping
