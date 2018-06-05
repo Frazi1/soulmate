@@ -1,5 +1,6 @@
 package com.soulmate.models.mapping
 
+import com.soulmate.Constants.Companion.NO_IMAGE_ID
 import com.soulmate.models.Member
 import com.soulmate.models.ProfileImage
 import com.soulmate.models.UserAccount
@@ -13,7 +14,7 @@ fun UserAccount.toUserAccountDto(): UserAccountDto {
             id,
             firstName,
             firstName,
-            profileImages.map { it.toProfileImageDto() },
+            if (profileImages.any()) profileImages.map { it.toProfileImageDto() } else listOf(ProfileImageDto(NO_IMAGE_ID)),
             gender,
             personalStory,
             age)
@@ -56,8 +57,7 @@ fun ProfileImage.toProfileImageDto(): ProfileImageDto {
     return ProfileImageDto(id, description, isMainImage)
 }
 
-fun UserMessage.toUserMessageDto(): UserMessageDto
-        = UserMessageDto(id, sourceUserAccount!!.id, destinationUserAccount!!.id, content, Date.from(sentTime.toInstant(ZoneOffset.UTC)))
+fun UserMessage.toUserMessageDto(): UserMessageDto = UserMessageDto(id, sourceUserAccount!!.id, destinationUserAccount!!.id, content, Date.from(sentTime.toInstant(ZoneOffset.UTC)))
 
 private fun createUserMessage(sourceUserAccount: UserAccount, destinationUserAccount: UserAccount, content: String): UserMessage {
     val userMessage = UserMessage()
