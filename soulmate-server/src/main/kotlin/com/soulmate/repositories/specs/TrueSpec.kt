@@ -6,7 +6,7 @@ import javax.persistence.criteria.CriteriaQuery
 import javax.persistence.criteria.Predicate
 import javax.persistence.criteria.Root
 
-class TrueSpec<T>(): Specification<T> {
+class TrueSpec<T> : Specification<T> {
     override fun toPredicate(root: Root<T>, query: CriteriaQuery<*>, cb: CriteriaBuilder): Predicate {
         return cb.and()
     }
