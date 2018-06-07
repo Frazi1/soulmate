@@ -1,5 +1,6 @@
 package com.soulmate.services
 
+import com.soulmate.Constants.Companion.NO_IMAGE_ID
 import com.soulmate.models.ProfileImage
 import com.soulmate.models.mapping.toProfileImage
 import com.soulmate.repositories.ImageRepository
@@ -9,6 +10,7 @@ import com.soulmate.utils.extensions.resize
 import com.soulmate.validation.exceptions.BusinessException
 import com.soulmate.validation.exceptions.UserDoesNotExistException
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.core.io.ResourceLoader
 import org.springframework.stereotype.Service
 import javax.transaction.Transactional
 
@@ -25,6 +27,9 @@ class ImageService {
 
     @Autowired
     private lateinit var userRepository: UserRepository
+
+    @Autowired
+    private lateinit var resourceLoader: ResourceLoader
 
     fun updateMainProfileImage(userId: Long, newImageId: Long) {
         val userImages: List<ProfileImage> = imageRepository.findAllByUserAccountId(userId)
@@ -66,6 +71,9 @@ class ImageService {
 //    }
 
     fun getImageBytes(id: Long, compressedWidth: Int?): ByteArray? {
+        if(id == (NO_IMAGE_ID).toLong()) {
+            return resourceLoader.getResource("classpath:image.png").inputStream.readBytes()
+        }
         val profileImage = imageRepository.findById(id)
         return profileImage
                 .orElseThrow {BusinessException("Image with id $id does not exist")}
