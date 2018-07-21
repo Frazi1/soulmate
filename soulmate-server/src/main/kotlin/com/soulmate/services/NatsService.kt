@@ -1,8 +1,6 @@
 package com.soulmate.services
 
-import io.nats.streaming.StreamingConnection
-import io.nats.streaming.StreamingConnectionFactory
-import io.nats.streaming.Subscription
+import io.nats.streaming.*
 import org.springframework.stereotype.Service
 
 @Service
@@ -14,7 +12,7 @@ class NatsService {
     private val connectionFactory = StreamingConnectionFactory("test-cluster", "server1")
     private val connection: StreamingConnection
 
-    private val activeSubscriptions: ArrayList<Pair<Long, Subscription>> = ArrayList()
+    private val activeSubscriptions: ArrayList<Triple<Long, Subscription, StreamingConnection>> = ArrayList()
 
     init {
         connection = connectionFactory.createConnection()
@@ -28,20 +26,27 @@ class NatsService {
 
     fun subscribeForUserChannel(userId: Long, messageHandler: (String) -> Unit) {
         if (activeSubscriptions.firstOrNull { it.first == userId } != null) return
-        val subscription = connection.subscribe(getUserChannelName(userId)) {
-            messageHandler(String(it.data))
-        }
-        activeSubscriptions.add(Pair(userId, subscription))
+        val userConnection = StreamingConnectionFactory("test-cluster", getUserChannelName(userId).plus("client"))
+                .createConnection()
+        val subscription = userConnection.subscribe(getUserChannelName(userId),
+                { msg: Message ->
+                    messageHandler(String(msg.data))
+                },
+                SubscriptionOptions.Builder()
+                        .durableName(getUserChannelName(userId).plus("durable"))
+//                        .manualAcks()
+//                        .deliverAllAvailable()
+                        .build())
+        activeSubscriptions.add(Triple(userId, subscription, userConnection))
     }
 
-    fun unsunscribeFromUserChannel(userId: Long) {
+    fun unsubscribeFromUserChannel(userId: Long) {
         val pair = activeSubscriptions.firstOrNull { it.first == userId }
         pair?.let {
             activeSubscriptions.remove(it)
-            it.second.close()
+            it.third.close()
+//            it.second.close()
         }
-
-
     }
 
 }

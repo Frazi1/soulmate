@@ -60,7 +60,7 @@ fun ProfileImage.toProfileImageDto(): ProfileImageDto {
 
 fun UserMessage.toUserMessageDto(): UserMessageDto = UserMessageDto(id, sourceUserAccount!!.id, destinationUserAccount!!.id, content, Date.from(sentTime.toInstant(ZoneOffset.UTC)))
 
-fun UserMessage.toDialogNotificationDto(dialogName: String): DialogNotificationDto = DialogNotificationDto(id, dialogName, toUserMessageDto() )
+fun UserMessage.toDialogNotificationDto(dialogName: String): DialogNotificationDto = DialogNotificationDto(sourceUserAccount!!.id, dialogName, toUserMessageDto() )
 
 private fun createUserMessage(sourceUserAccount: UserAccount, destinationUserAccount: UserAccount, content: String): UserMessage {
     val userMessage = UserMessage()
