@@ -37,7 +37,7 @@ class MessageService {
         val userMessage = message.toUserMessage(sourceUserAccount, destinationUserAccount)
         messageRepository.save(userMessage)
         val dialogNotificationDto = userMessage.toDialogNotificationDto(sourceUserAccount.fullName)
-        notificationService.sendDialogMessageNotification(dialogNotificationDto.messageDto.fromUserId, dialogNotificationDto)
+        notificationService.sendDialogMessageNotification(dialogNotificationDto.messageDto.toUserId, dialogNotificationDto)
         return dialogNotificationDto.messageDto
     }
 
