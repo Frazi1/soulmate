@@ -1,11 +1,12 @@
 package com.soulmate.models.mapping
 
 import com.soulmate.Constants.Companion.NO_IMAGE_ID
-import com.soulmate.models.Member
-import com.soulmate.models.ProfileImage
-import com.soulmate.models.UserAccount
-import com.soulmate.models.UserMessage
+import com.soulmate.models.dataAccess.Member
+import com.soulmate.models.dataAccess.ProfileImage
+import com.soulmate.models.dataAccess.UserAccount
+import com.soulmate.models.dataAccess.UserMessage
 import com.soulmate.shared.dtos.*
+import com.soulmate.shared.dtos.notifications.DialogNotificationDto
 import java.time.ZoneOffset
 import java.util.*
 
@@ -58,6 +59,8 @@ fun ProfileImage.toProfileImageDto(): ProfileImageDto {
 }
 
 fun UserMessage.toUserMessageDto(): UserMessageDto = UserMessageDto(id, sourceUserAccount!!.id, destinationUserAccount!!.id, content, Date.from(sentTime.toInstant(ZoneOffset.UTC)))
+
+fun UserMessage.toDialogNotificationDto(dialogName: String): DialogNotificationDto = DialogNotificationDto(id, dialogName, toUserMessageDto() )
 
 private fun createUserMessage(sourceUserAccount: UserAccount, destinationUserAccount: UserAccount, content: String): UserMessage {
     val userMessage = UserMessage()

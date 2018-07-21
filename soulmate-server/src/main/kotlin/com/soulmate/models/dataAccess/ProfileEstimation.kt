@@ -1,4 +1,4 @@
-package com.soulmate.models
+package com.soulmate.models.dataAccess
 
 import com.soulmate.shared.Estimation
 import java.io.Serializable

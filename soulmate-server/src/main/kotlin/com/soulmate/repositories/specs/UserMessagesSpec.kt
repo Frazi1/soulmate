@@ -1,7 +1,7 @@
 package com.soulmate.repositories.specs
 
-import com.soulmate.models.UserAccount
-import com.soulmate.models.UserMessage
+import com.soulmate.models.dataAccess.UserAccount
+import com.soulmate.models.dataAccess.UserMessage
 import org.springframework.data.jpa.domain.Specification
 import javax.persistence.criteria.CriteriaBuilder
 import javax.persistence.criteria.CriteriaQuery

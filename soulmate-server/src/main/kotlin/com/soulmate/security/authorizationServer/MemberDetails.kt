@@ -1,6 +1,6 @@
 package com.soulmate.security.authorizationServer
 
-import com.soulmate.models.Member
+import com.soulmate.models.dataAccess.Member
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 

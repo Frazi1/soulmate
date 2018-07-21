@@ -1,5 +1,6 @@
 package com.soulmate.services
 
+import com.soulmate.models.mapping.toDialogNotificationDto
 import com.soulmate.models.mapping.toUserMessage
 import com.soulmate.models.mapping.toUserMessageDto
 import com.soulmate.repositories.MessageRepository
@@ -24,6 +25,9 @@ class MessageService {
     @Autowired
     private lateinit var userService: UserService
 
+    @Autowired
+    private lateinit var notificationService: NotificationService
+
     fun sendMessage(message: SendMessageDto, sourceUserId: Long): UserMessageDto {
         val sourceUserAccount = userRepository
                 .findById(sourceUserId).orElseThrow { UserDoesNotExistException(sourceUserId) }
@@ -32,7 +36,9 @@ class MessageService {
 
         val userMessage = message.toUserMessage(sourceUserAccount, destinationUserAccount)
         messageRepository.save(userMessage)
-        return userMessage.toUserMessageDto()
+        val dialogNotificationDto = userMessage.toDialogNotificationDto(sourceUserAccount.fullName)
+        notificationService.sendDialogMessageNotification(dialogNotificationDto.messageDto.fromUserId, dialogNotificationDto)
+        return dialogNotificationDto.messageDto
     }
 
     fun getMessagesForUsers(firstUserId: Long, secondUserId: Long): Iterable<UserMessageDto> {

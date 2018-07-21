@@ -1,7 +1,6 @@
-package com.soulmate.models
+package com.soulmate.models.dataAccess
 
 import com.soulmate.shared.GenderType
-import org.hibernate.annotations.ColumnDefault
 import javax.persistence.*
 
 
@@ -47,6 +46,10 @@ class UserAccount() {
 
     @OneToMany(mappedBy = "destinationUserAccount", fetch = FetchType.LAZY, cascade = [CascadeType.ALL], orphanRemoval = true)
     var receivedMessages: MutableCollection<UserMessage> = mutableListOf()
+
+    val fullName: String
+        get() = "$firstName $lastName"
+
 
     constructor(id: Long, member: Member?, firstName: String?, lastName: String?, gender: GenderType, personalStory: String)
             : this(firstName, lastName) {

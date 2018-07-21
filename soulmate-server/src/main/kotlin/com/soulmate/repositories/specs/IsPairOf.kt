@@ -1,7 +1,7 @@
 package com.soulmate.repositories.specs
 
-import com.soulmate.models.ProfileEstimation
-import com.soulmate.models.UserAccount
+import com.soulmate.models.dataAccess.ProfileEstimation
+import com.soulmate.models.dataAccess.UserAccount
 import com.soulmate.shared.Estimation
 import org.springframework.data.jpa.domain.Specification
 import javax.persistence.criteria.*

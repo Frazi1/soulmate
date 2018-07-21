@@ -1,6 +1,6 @@
 package com.soulmate.controller
 
-import com.soulmate.models.UserAccount
+import com.soulmate.models.dataAccess.UserAccount
 import com.soulmate.repositories.specs.TrueSpec
 import com.soulmate.security.interfaces.IUserContextHolder
 import com.soulmate.services.UserService

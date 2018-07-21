@@ -1,6 +1,6 @@
 package com.soulmate.repositories
 
-import com.soulmate.models.Member
+import com.soulmate.models.dataAccess.Member
 import org.springframework.data.repository.CrudRepository
 
 interface MemberRepository : CrudRepository<Member, Long> {

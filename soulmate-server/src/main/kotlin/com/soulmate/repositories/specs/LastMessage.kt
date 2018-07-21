@@ -1,6 +1,6 @@
 package com.soulmate.repositories.specs
 
-import com.soulmate.models.UserMessage
+import com.soulmate.models.dataAccess.UserMessage
 import org.springframework.data.jpa.domain.Specification
 import java.time.LocalDateTime
 import javax.persistence.criteria.*

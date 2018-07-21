@@ -1,6 +1,6 @@
 package com.soulmate.repositories
 
-import com.soulmate.models.UserAccount
+import com.soulmate.models.dataAccess.UserAccount
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.CrudRepository

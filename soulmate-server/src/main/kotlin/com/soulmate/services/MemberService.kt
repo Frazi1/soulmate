@@ -1,7 +1,7 @@
 package com.soulmate.services
 
-import com.soulmate.models.Member
-import com.soulmate.models.UserAccount
+import com.soulmate.models.dataAccess.Member
+import com.soulmate.models.dataAccess.UserAccount
 import com.soulmate.models.mapping.toMember
 import com.soulmate.repositories.MemberRepository
 import com.soulmate.security.authorizationServer.MemberDetails

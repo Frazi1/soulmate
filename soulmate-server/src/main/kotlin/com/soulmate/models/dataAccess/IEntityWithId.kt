@@ -1,4 +1,4 @@
-package com.soulmate.models
+package com.soulmate.models.dataAccess
 
 interface IEntityWithId {
     var id: Long

@@ -1,6 +1,6 @@
 package com.soulmate.repositories.specs
 
-import com.soulmate.models.UserAccount
+import com.soulmate.models.dataAccess.UserAccount
 import org.springframework.data.jpa.domain.Specification
 import javax.persistence.criteria.CriteriaBuilder
 import javax.persistence.criteria.CriteriaQuery

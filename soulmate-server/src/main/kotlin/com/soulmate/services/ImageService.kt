@@ -1,7 +1,7 @@
 package com.soulmate.services
 
 import com.soulmate.Constants.Companion.NO_IMAGE_ID
-import com.soulmate.models.ProfileImage
+import com.soulmate.models.dataAccess.ProfileImage
 import com.soulmate.models.mapping.toProfileImage
 import com.soulmate.repositories.ImageRepository
 import com.soulmate.repositories.UserRepository

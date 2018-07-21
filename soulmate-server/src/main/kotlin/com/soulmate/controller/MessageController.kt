@@ -50,7 +50,7 @@ class MessageController(userContextHolder: IUserContextHolder,
 
     @Scheduled(fixedDelay = 2000)
     private fun processQueue() {
-        queue.forEach({
+        queue.forEach {
             if (it.isSetOrExpired) {
                 queue.remove(it)
             } else {
@@ -61,6 +61,6 @@ class MessageController(userContextHolder: IUserContextHolder,
 
                 }
             }
-        })
+        }
     }
 }

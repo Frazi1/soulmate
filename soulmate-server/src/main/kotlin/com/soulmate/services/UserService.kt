@@ -1,7 +1,7 @@
 package com.soulmate.services
 
-import com.soulmate.models.ProfileEstimation
-import com.soulmate.models.UserAccount
+import com.soulmate.models.dataAccess.ProfileEstimation
+import com.soulmate.models.dataAccess.UserAccount
 import com.soulmate.models.mapping.toExistingUserAccount
 import com.soulmate.models.mapping.toUserAccountDto
 import com.soulmate.repositories.UserRepository

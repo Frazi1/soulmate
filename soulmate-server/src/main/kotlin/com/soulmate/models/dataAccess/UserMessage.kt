@@ -1,4 +1,4 @@
-package com.soulmate.models
+package com.soulmate.models.dataAccess
 
 import java.time.Clock
 import java.time.LocalDateTime

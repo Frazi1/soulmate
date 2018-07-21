@@ -1,4 +1,4 @@
-package com.soulmate.models
+package com.soulmate.models.dataAccess
 
 import javax.persistence.*
 

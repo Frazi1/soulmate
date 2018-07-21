@@ -1,6 +1,6 @@
 package com.soulmate.repositories
 
-import com.soulmate.models.ProfileImage
+import com.soulmate.models.dataAccess.ProfileImage
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 import java.util.*

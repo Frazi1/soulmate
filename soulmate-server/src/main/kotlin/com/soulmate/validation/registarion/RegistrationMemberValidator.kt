@@ -1,7 +1,7 @@
 package com.soulmate.validation.registarion
 
 import com.soulmate.models.mapping.toMember
-import com.soulmate.models.Member
+import com.soulmate.models.dataAccess.Member
 import com.soulmate.services.MemberService
 import com.soulmate.shared.dtos.UserRegistrationDto
 import org.springframework.beans.factory.annotation.Autowired
